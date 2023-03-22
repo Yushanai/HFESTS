@@ -63,9 +63,10 @@ $statement->execute();
     <!-------------------------------Content---------------------------------->
     <div class="row row-content align-items-center">
         <div class="col-12">
-            <h2>Please select the part you would like me to operate on.</h2>
+            <h2>Please select the part you would like to operate on.</h2>
             <!--Accordion-->
             <div id="accordion">
+    <!------------------------------------------------------------Employees---------------------------------->
                 <div class="card">
                     <div class="card-header" role="tab" id="Employeehead">
                         <h3 class="mb-0">
@@ -111,8 +112,21 @@ $statement->execute();
                                         <td><?= $row["citizenship"] ?></td>
                                         <td><?= $row["email_address"] ?></td>
                                         <td>
-                                        <button type="submit"><a href="./edit.php?MCN=<?=$row["MCN"]?>">Edit</a></button>
-                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this record?')"><a href="./delete.php?MCN=<?=$row["MCN"]?>">Delete</a></button>
+                                        <!--edit button-->
+                                        <button type="button" class="btn btn-primary btn-sm w-100" 
+                                                data-toggle="modal"  data-target="#editEmployees"> 
+                                                <a href="Employees/edit.php?MCN=<?=$row["MCN"]?>"
+                                                style="font-weight:bold; color: black" >Edit
+                                                </a>
+                                        </button>
+                                        <!--delete button-->
+                                        <button type="submit" class="btn btn-primary btn-sm w-100" 
+                                                onclick="return confirm('Are you sure you want to delete this record?')"
+                                                style="background-color: red; color: white;">
+                                                <a href="Employees/delete.php?MCN=<?=$row["MCN"]?>" 
+                                                style="font-weight:bold; color: black">Delete
+                                                </a>
+                                        </button>
                     
                     
                                         </td> 
@@ -125,6 +139,9 @@ $statement->execute();
                         </div>
                    
                     </div>
+<!------------------------------------------------------------Employees end---------------------------------->
+
+<!------------------------------------------------------------Facility ---------------------------------->
 
                 <div class="card">
                     <div class="card-header" role="tab" id="Facilityhead">
@@ -182,6 +199,7 @@ $statement->execute();
                     </div>
                 </div>
                 </div>
+<!------------------------------------------------------------Facility end ---------------------------------->
 
                 <div class="card">
                     <div class="card-header" role="tab" id="Vaccinationhead">

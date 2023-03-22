@@ -38,3 +38,7 @@ address {
 .list-unstyled li a {
             color: black;
           }
+a {
+    font-weight:bold;
+     color: black
+}
