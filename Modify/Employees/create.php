@@ -1,4 +1,4 @@
-<?php require_once '../database.php';
+<?php require_once '../../database.php';
 
 if(isset($_POST["MCN"]) && isset($_POST["first_name"]) && isset($_POST["last_name"]) 
     && isset($_POST["date_of_birth"]) && isset($_POST["telephone_number"]) && isset($_POST["address"]) 
@@ -23,7 +23,7 @@ if(isset($_POST["MCN"]) && isset($_POST["first_name"]) && isset($_POST["last_nam
 
        
         if( $statement->execute()){
-            header("Location: index.php"); //If succsessful, bring the user to the previous location
+            header("Location: .././index.php"); //If succsessful, bring the user to the previous location
             exit;
         }
         

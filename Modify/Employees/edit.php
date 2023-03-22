@@ -35,17 +35,20 @@ if(isset($_POST["MCN"])
         $statement->bindParam(':email_address', $_POST["email_address"]);
 
        
-        if ($statement->execute()) {
-            // Query executed successfully
-            echo "<script>alert('Query executed successfully!');</script>";
-        } else {
-            // Query execution failed
-            echo "<script>alert('Query execution failed.');</script>";
-        }
+       
         
 
 }
+if ($statement->execute()) {
+    // Query executed successfully
+        header("Location: Modify/index.php"); //If succsessful, bring the user to the previous location
+        exit;
+} else {
+    // Query execution failed
+    echo "<script>alert('Query execution failed.');</script>";
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

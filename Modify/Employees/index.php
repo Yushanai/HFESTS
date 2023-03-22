@@ -1,4 +1,4 @@
-<?php require_once '../database.php';
+<?php require_once '../../database.php';
 
 $statement = $conn->prepare('SELECT*FROM employees');
 $statement->execute();

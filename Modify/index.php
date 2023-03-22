@@ -2,6 +2,7 @@
 
 $statement = $conn->prepare('SELECT*FROM employees');
 $statement->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -69,14 +70,68 @@ $statement->execute();
     <!------------------------------------------------------------Employees---------------------------------->
                 <div class="card">
                     <div class="card-header" role="tab" id="Employeehead">
+                        <div class="d-flex">
                         <h3 class="mb-0">
                             <a data-toggle="collapse" data-target="#Employee">
                                 Employee <small>Create/Delete/Edit/Display a Employee</small>
                             </a>
                         </h3>
+                         <!--Create button-->
+                         <button type="button" class="btn btn-success btn-sm " 
+                            data-toggle="modal"  data-target="#createEmployees"> 
+                            <a style="font-weight:bold; color: black" >Create</a>
+                        </button>
+                        </div>
                     </div>
-
+                    <!-- Button modal Content -->
+                    <div id="createEmployees" class="modal fade" role="dialog" style="color:black ;">
+                                            <div class="modal-dialog modal-lg" role="content">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" style="background:#3e94f1 ;">
+                                                        <h4 class="modal-title">Create Employees</h4>
+                                                        <button type="button" class="close" data-dismiss="modal">
+                                                        &times;
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="background:floralwhite ;">
+                                                        <form class="form-group"id="create-Employee" action="Employees/create.php" method = "post">
+                                                            <label for="MCN">MCN number</label><br>
+                                                            <input type="number" name="MCN" id="MCN" > <br>
+                                                            <label for="first_name">First name</label><br>
+                                                            <input type="text" name="first_name" id="first_name" > <br>
+                                                            <label for="last_name">Last name</label><br>
+                                                            <input type="text" name="last_name" id="last_name" > <br>
+                                                            <label for="date_of_birth">Date of birth</label><br>
+                                                            <input type="date" name="date_of_birth" id="date_of_birth" > <br>
+                                                            <label for="telephone_number">Telephone number</label><br>
+                                                            <input type="text" name="telephone_number" id="telephone_number" > <br>
+                                                            <label for="address">address</label><br>
+                                                            <input type="text" name="address" id="address" > <br>
+                                                            <label for="city">City</label><br>
+                                                            <input type="text" name="city" id="city" > <br>
+                                                            <label for="province">Province</label><br>
+                                                            <input type="text" name="province" id="province" > <br>
+                                                            <label for="postal_code">Postal code</label><br>
+                                                            <input type="text" name="postal_code" id="postal_code" > <br>
+                                                            <label for="citizenship">Citizenship</label><br>
+                                                            <input type="text" name="citizenship" id="citizenship" > <br>
+                                                            <label for="email_address">Email address</label><br>
+                                                            <input type="text" name="email_address" id="email_address"> <br><br><br>
+                                                    </div>
+                                                    <div class="modal-footer" style="background:#3e94f1;">
+                                                        <div class="offset-md-2 col-md-10">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                            <button type="submit" class="btn btn-primary">Create</button>
+                                                        </div>
+                                                    </div>
+                                                        </form>
+                                                   
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
                     <div role="tabpanel" class="show" id="Employee" data-parent="#accordion">
+    <!----------------------table for employees--------------------------------------->
                         <div class="card-body"><!--table for employees-->
                             <div class="col-12 col-sm-9">
                             <div class="table-responsive"> <!--table can scroll horizontally when using small screen devices-->
@@ -115,14 +170,59 @@ $statement->execute();
                                         <!--edit button-->
                                         <button type="button" class="btn btn-primary btn-sm w-100" 
                                                 data-toggle="modal"  data-target="#editEmployees"> 
-                                                <a href="Employees/edit.php?MCN=<?=$row["MCN"]?>"
+                                                <a 
                                                 style="font-weight:bold; color: black" >Edit
                                                 </a>
                                         </button>
+                                        <!-- Button modal Content -->
+                                        <div id="editEmployees" class="modal fade" role="dialog" style="color:black ;">
+                                            <div class="modal-dialog modal-lg" role="content">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" style="background:#3e94f1 ;">
+                                                        <h4 class="modal-title">Edit Employees</h4>
+                                                        <button type="button" class="close" data-dismiss="modal">
+                                                        &times;
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="background:floralwhite ;">
+                                                        <form class="form-group"id="edit-Employee" action="Employees/edit.php" method = "post">
+                                                            <label for="MCN">MCN number</label><br>
+                                                            <input type="number" name="MCN" id="MCN" value="<?=$employees["MCN"]?>"> <br>
+                                                            <label for="first_name">First name</label><br>
+                                                            <input type="text" name="first_name" id="first_name" value="<?=$employees["first_name"]?>"> <br>
+                                                            <label for="last_name">Last name</label><br>
+                                                            <input type="text" name="last_name" id="last_name" value="<?=$employees["last_name"]?>"> <br>
+                                                            <label for="date_of_birth">Date of birth</label><br>
+                                                            <input type="date" name="date_of_birth" id="date_of_birth" value="<?=$employees["date_of_birth"]?>"> <br>
+                                                            <label for="telephone_number">Telephone number</label><br>
+                                                            <input type="text" name="telephone_number" id="telephone_number" value="<?=$employees["telephone_number"]?>"> <br>
+                                                            <label for="address">address</label><br>
+                                                            <input type="text" name="address" id="address" value="<?=$employees["address"]?>"> <br>
+                                                            <label for="city">City</label><br>
+                                                            <input type="text" name="city" id="city" value="<?=$employees["city"]?>"> <br>
+                                                            <label for="province">Province</label><br>
+                                                            <input type="text" name="province" id="province" value="<?=$employees["province"]?>"> <br>
+                                                            <label for="postal_code">Postal code</label><br>
+                                                            <input type="text" name="postal_code" id="postal_code" value="<?=$employees["postal_code"]?>"> <br>
+                                                            <label for="citizenship">Citizenship</label><br>
+                                                            <input type="text" name="citizenship" id="citizenship" value="<?=$employees["citizenship"]?>"> <br>
+                                                            <label for="email_address">Email address</label><br>
+                                                            <input type="text" name="email_address" id="email_address" value="<?=$employees["email_address"]?>"> <br>
+                                                            <button type = "submit">Update </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer" style="background:#3e94f1;">
+                                                        <div class="offset-md-2 col-md-10">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Edit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                         <!--delete button-->
-                                        <button type="submit" class="btn btn-primary btn-sm w-100" 
-                                                onclick="return confirm('Are you sure you want to delete this record?')"
-                                                style="background-color: red; color: white;">
+                                        <button type="submit" class="btn btn-danger btn-sm w-100" onclick="return confirm('Are you sure you want to delete this record?')">
                                                 <a href="Employees/delete.php?MCN=<?=$row["MCN"]?>" 
                                                 style="font-weight:bold; color: black">Delete
                                                 </a>
@@ -138,7 +238,7 @@ $statement->execute();
                             </div>
                         </div>
                    
-                    </div>
+                </div>
 <!------------------------------------------------------------Employees end---------------------------------->
 
 <!------------------------------------------------------------Facility ---------------------------------->
