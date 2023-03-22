@@ -22,10 +22,11 @@ body {
 }
 
 .footer {
-    background: #3e94f1;
+    background: #6277ff;
     margin: 0px auto;
     padding: 20px 0px;
-    bottom:0;
+    flex-shrink: 0;
+
 
  }
 
@@ -33,3 +34,7 @@ address {
         font-size: 80%;
         margin: 0px;
         color: #0f0f0f; }
+
+.list-unstyled li a {
+            color: black;
+          }
