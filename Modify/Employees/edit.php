@@ -1,5 +1,5 @@
 <?php require_once '../../database.php';
-
+ 
 $statement = $conn->prepare("SELECT* FROM employees AS employee WHERE employee.MCN = :MCN ");
 $statement->bindParam(":MCN", $_GET["MCN"]);
 $statement->execute();
@@ -35,18 +35,19 @@ if(isset($_POST["MCN"])
         $statement->bindParam(':email_address', $_POST["email_address"]);
 
        
-       
+    }
         
 
-}
+//}
 if ($statement->execute()) {
     // Query executed successfully
-        header("Location: Modify/index.php"); //If succsessful, bring the user to the previous location
-        exit;
-} else {
-    // Query execution failed
-    echo "<script>alert('Query execution failed.');</script>";
-}
+        header("Location: .././index.php"); //If succsessful, bring the user to the previous location
+       // exit;
+} 
+//else{
+   // header("location: ./edit.php?MCN=".$_POST["MCN"]);
+//}
+
 ?>
 
 <!DOCTYPE html>

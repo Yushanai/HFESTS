@@ -1,9 +1,11 @@
 <?php require_once '../database.php';
 
-$statement = $conn->prepare('SELECT*FROM employees');
-$statement->execute();
-
+$Employee = $conn->prepare('SELECT*FROM employees');
+$Employee->execute();
+$Facility = $conn->prepare('SELECT*FROM employees');
+$Facility->execute();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -153,7 +155,7 @@ $statement->execute();
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while ($row = $statement->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) { ?>
+                                        <?php while ($row = $Employee->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) { ?>
                                         <tr>
                                         <td><?= $row["MCN"] ?></td>
                                         <td><?= $row["first_name"] ?></td>
@@ -169,7 +171,9 @@ $statement->execute();
                                         <td>
                                         <!--edit button-->
                                         <button type="button" class="btn btn-primary btn-sm w-100" 
-                                                data-toggle="modal"  data-target="#editEmployees"> 
+                                                data-toggle="modal"  data-target="#editEmployees"
+                                                
+                                                > 
                                                 <a 
                                                 style="font-weight:bold; color: black" >Edit
                                                 </a>
@@ -180,43 +184,42 @@ $statement->execute();
                                                 <div class="modal-content">
                                                     <div class="modal-header" style="background:#3e94f1 ;">
                                                         <h4 class="modal-title">Edit Employees</h4>
-                                                        <button type="button" class="close" data-dismiss="modal">
+                                                        <button type="submit" class="close" data-dismiss="modal" >
                                                         &times;
                                                         </button>
                                                     </div>
                                                     <div class="modal-body" style="background:floralwhite ;">
                                                         <form class="form-group"id="edit-Employee" action="Employees/edit.php" method = "post">
                                                             <label for="MCN">MCN number</label><br>
-                                                            <input type="number" name="MCN" id="MCN" value="<?=$employees["MCN"]?>"> <br>
+                                                            <input type="number" name="MCN" id="MCN"  > <br>
                                                             <label for="first_name">First name</label><br>
-                                                            <input type="text" name="first_name" id="first_name" value="<?=$employees["first_name"]?>"> <br>
+                                                            <input type="text" name="first_name" id="first_name"> <br>
                                                             <label for="last_name">Last name</label><br>
-                                                            <input type="text" name="last_name" id="last_name" value="<?=$employees["last_name"]?>"> <br>
+                                                            <input type="text" name="last_name" id="last_name"  > <br>
                                                             <label for="date_of_birth">Date of birth</label><br>
-                                                            <input type="date" name="date_of_birth" id="date_of_birth" value="<?=$employees["date_of_birth"]?>"> <br>
+                                                            <input type="date" name="date_of_birth" id="date_of_birth" > <br>
                                                             <label for="telephone_number">Telephone number</label><br>
-                                                            <input type="text" name="telephone_number" id="telephone_number" value="<?=$employees["telephone_number"]?>"> <br>
+                                                            <input type="text" name="telephone_number" id="telephone_number"> <br>
                                                             <label for="address">address</label><br>
-                                                            <input type="text" name="address" id="address" value="<?=$employees["address"]?>"> <br>
+                                                            <input type="text" name="address" id="address" > <br>
                                                             <label for="city">City</label><br>
-                                                            <input type="text" name="city" id="city" value="<?=$employees["city"]?>"> <br>
+                                                            <input type="text" name="city" id="city" > <br>
                                                             <label for="province">Province</label><br>
-                                                            <input type="text" name="province" id="province" value="<?=$employees["province"]?>"> <br>
+                                                            <input type="text" name="province" id="province" > <br>
                                                             <label for="postal_code">Postal code</label><br>
-                                                            <input type="text" name="postal_code" id="postal_code" value="<?=$employees["postal_code"]?>"> <br>
+                                                            <input type="text" name="postal_code" id="postal_code"> <br>
                                                             <label for="citizenship">Citizenship</label><br>
-                                                            <input type="text" name="citizenship" id="citizenship" value="<?=$employees["citizenship"]?>"> <br>
-                                                            <label for="email_address">Email address</label><br>
-                                                            <input type="text" name="email_address" id="email_address" value="<?=$employees["email_address"]?>"> <br>
-                                                            <button type = "submit">Update </button>
-                                                        </form>
+                                                            <input type="text" name="citizenship" id="citizenship" > <br>
+                                                           <label for="email_address">Email address</label><br>
+                                                            <input type="text" name="email_address" id="email_address" > <br><br><br>
                                                     </div>
                                                     <div class="modal-footer" style="background:#3e94f1;">
                                                         <div class="offset-md-2 col-md-10">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Edit</button>
+                                                            <button type="submit" class="btn btn-primary">Edit</button>
                                                         </div>
                                                     </div>
+                                                        </form>
                                                 </div>
                                             </div>
                                         </div>
