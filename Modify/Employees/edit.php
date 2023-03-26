@@ -41,7 +41,7 @@ if(isset($_POST["MCN"])
 //}
 if ($statement->execute()) {
     // Query executed successfully
-        header("Location: .././index.php"); //If succsessful, bring the user to the previous location
+        header("Location: ../index.php"); //If succsessful, bring the user to the previous location
        // exit;
 } 
 //else{

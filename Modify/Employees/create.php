@@ -1,9 +1,16 @@
 <?php require_once '../../database.php';
 
-if(isset($_POST["MCN"]) && isset($_POST["first_name"]) && isset($_POST["last_name"]) 
-    && isset($_POST["date_of_birth"]) && isset($_POST["telephone_number"]) && isset($_POST["address"]) 
-    && isset($_POST["city"]) && isset($_POST["province"]) && isset($_POST["postal_code"]) 
-    && isset($_POST["citizenship"]) && isset($_POST["email_address"]))
+if(isset($_POST["MCN"]) 
+&& isset($_POST["first_name"]) 
+&& isset($_POST["last_name"]) 
+&& isset($_POST["date_of_birth"]) 
+&& isset($_POST["telephone_number"]) 
+&& isset($_POST["address"]) 
+&& isset($_POST["city"]) 
+&& isset($_POST["province"]) 
+&& isset($_POST["postal_code"]) 
+&& isset($_POST["citizenship"]) 
+&& isset($_POST["email_address"]))
     {
         $statement =  $conn->prepare("INSERT INTO employees (MCN, first_name, last_name, date_of_birth, 
             telephone_number, address, city, province, postal_code, citizenship, email_address )
@@ -23,7 +30,7 @@ if(isset($_POST["MCN"]) && isset($_POST["first_name"]) && isset($_POST["last_nam
 
        
         if( $statement->execute()){
-            header("Location: .././index.php"); //If succsessful, bring the user to the previous location
+            header("Location: ../index.php"); //If succsessful, bring the user to the previous location
             exit;
         }
         

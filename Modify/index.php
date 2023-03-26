@@ -2,8 +2,12 @@
 
 $Employee = $conn->prepare('SELECT*FROM employees');
 $Employee->execute();
-$Facility = $conn->prepare('SELECT*FROM employees');
+$Facility = $conn->prepare('SELECT*FROM facilities');
 $Facility->execute();
+$Vaccination = $conn->prepare('SELECT*FROM vaccination');
+$Vaccination->execute();
+$Infection = $conn->prepare('SELECT*FROM infection_history');
+$Infection->execute();
 ?>
 
 
@@ -37,11 +41,16 @@ $Facility->execute();
                     class="img-fluid"></a>
             <div class="collapse navbar-collapse" id="Navbar">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link fa-lg" href="../index.php"> <span class="fa fa-hospital-o "></span> Home</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="./index.php"><span class="fa fa-pencil  "></span>Modify</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="../information.php"><span class="fa fa-info "></span>Infomation</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="../schedule.php"><span class="fa fa-calendar-o "></span>Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="../email.php"><span class="fa fa-envelope-o  "></span>Email</a></li>
+                    <li class="nav-item"><a class="nav-link fa-lg" href="../index.php"> <span
+                                class="fa fa-hospital-o "></span> Home</a></li>
+                    <li class="nav-item"><a class="nav-link fa-lg" href="./index.php"><span
+                                class="fa fa-pencil  "></span>Modify</a></li>
+                    <li class="nav-item"><a class="nav-link fa-lg" href="./information.php"><span
+                                class="fa fa-info "></span>Infomation</a></li>
+                    <li class="nav-item"><a class="nav-link fa-lg" href="./schedule.php"><span
+                                class="fa fa-calendar-o "></span>Schedule</a></li>
+                    <li class="nav-item"><a class="nav-link fa-lg" href="./email.php"><span
+                                class="fa fa-envelope-o  "></span>Email</a></li>
                 </ul>
             </div>
         </div>
@@ -69,295 +78,714 @@ $Facility->execute();
             <h2>Please select the part you would like to operate on.</h2>
             <!--Accordion-->
             <div id="accordion">
-    <!------------------------------------------------------------Employees---------------------------------->
+                <!------------------------------------------------------------Employees---------------------------------->
                 <div class="card">
                     <div class="card-header" role="tab" id="Employeehead">
                         <div class="d-flex">
-                        <h3 class="mb-0">
-                            <a data-toggle="collapse" data-target="#Employee">
-                                Employee <small>Create/Delete/Edit/Display a Employee</small>
-                            </a>
-                        </h3>
-                         <!--Create button-->
-                         <button type="button" class="btn btn-success btn-sm " 
-                            data-toggle="modal"  data-target="#createEmployees"> 
-                            <a style="font-weight:bold; color: black" >Create</a>
-                        </button>
+                            <h3 class="mb-0">
+                                <a data-toggle="collapse" data-target="#Employee">
+                                    Employee <small>Create/Delete/Edit/Display a Employee</small>
+                                </a>
+                            </h3>
+                            <!--Create button-->
+                            <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
+                                data-target="#createEmployees">
+                                <a style="font-weight:bold; color: black">Create</a>
+                            </button>
                         </div>
                     </div>
                     <!-- Button modal Content -->
                     <div id="createEmployees" class="modal fade" role="dialog" style="color:black ;">
-                                            <div class="modal-dialog modal-lg" role="content">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" style="background:#3e94f1 ;">
-                                                        <h4 class="modal-title">Create Employees</h4>
-                                                        <button type="button" class="close" data-dismiss="modal">
-                                                        &times;
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body" style="background:floralwhite ;">
-                                                        <form class="form-group"id="create-Employee" action="Employees/create.php" method = "post">
-                                                            <label for="MCN">MCN number</label><br>
-                                                            <input type="number" name="MCN" id="MCN" > <br>
-                                                            <label for="first_name">First name</label><br>
-                                                            <input type="text" name="first_name" id="first_name" > <br>
-                                                            <label for="last_name">Last name</label><br>
-                                                            <input type="text" name="last_name" id="last_name" > <br>
-                                                            <label for="date_of_birth">Date of birth</label><br>
-                                                            <input type="date" name="date_of_birth" id="date_of_birth" > <br>
-                                                            <label for="telephone_number">Telephone number</label><br>
-                                                            <input type="text" name="telephone_number" id="telephone_number" > <br>
-                                                            <label for="address">address</label><br>
-                                                            <input type="text" name="address" id="address" > <br>
-                                                            <label for="city">City</label><br>
-                                                            <input type="text" name="city" id="city" > <br>
-                                                            <label for="province">Province</label><br>
-                                                            <input type="text" name="province" id="province" > <br>
-                                                            <label for="postal_code">Postal code</label><br>
-                                                            <input type="text" name="postal_code" id="postal_code" > <br>
-                                                            <label for="citizenship">Citizenship</label><br>
-                                                            <input type="text" name="citizenship" id="citizenship" > <br>
-                                                            <label for="email_address">Email address</label><br>
-                                                            <input type="text" name="email_address" id="email_address"> <br><br><br>
-                                                    </div>
-                                                    <div class="modal-footer" style="background:#3e94f1;">
-                                                        <div class="offset-md-2 col-md-10">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                            <button type="submit" class="btn btn-primary">Create</button>
-                                                        </div>
-                                                    </div>
-                                                        </form>
-                                                   
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div class="modal-dialog modal-lg" role="content">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background:#3e94f1 ;">
+                                    <h4 class="modal-title">Create Employees</h4>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        &times;
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="background:floralwhite ;">
+                                    <form class="form-group" id="create-Employee" action="Employees/create.php"
+                                        method="post">
+                                        <label for="MCN">MCN number</label><br>
+                                        <input type="number" name="MCN" id="MCN"> <br>
+                                        <label for="first_name">First name</label><br>
+                                        <input type="text" name="first_name" id="first_name"> <br>
+                                        <label for="last_name">Last name</label><br>
+                                        <input type="text" name="last_name" id="last_name"> <br>
+                                        <label for="date_of_birth">Date of birth</label><br>
+                                        <input type="date" name="date_of_birth" id="date_of_birth"> <br>
+                                        <label for="telephone_number">Telephone number</label><br>
+                                        <input type="text" name="telephone_number" id="telephone_number"> <br>
+                                        <label for="address">address</label><br>
+                                        <input type="text" name="address" id="address"> <br>
+                                        <label for="city">City</label><br>
+                                        <input type="text" name="city" id="city"> <br>
+                                        <label for="province">Province</label><br>
+                                        <input type="text" name="province" id="province"> <br>
+                                        <label for="postal_code">Postal code</label><br>
+                                        <input type="text" name="postal_code" id="postal_code"> <br>
+                                        <label for="citizenship">Citizenship</label><br>
+                                        <input type="text" name="citizenship" id="citizenship"> <br>
+                                        <label for="email_address">Email address</label><br>
+                                        <input type="text" name="email_address" id="email_address"> <br><br><br>
+                                </div>
+                                <div class="modal-footer" style="background:#3e94f1;">
+                                    <div class="offset-md-2 col-md-10">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Create</button>
+                                    </div>
+                                </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
                     <div role="tabpanel" class="show" id="Employee" data-parent="#accordion">
-    <!----------------------table for employees--------------------------------------->
-                        <div class="card-body"><!--table for employees-->
+                        <!----------------------table for employees--------------------------------------->
+                        <div class="card-body">
+                            <!--table for employees-->
                             <div class="col-12 col-sm-9">
-                            <div class="table-responsive"> <!--table can scroll horizontally when using small screen devices-->
-                                <table class="table table-striped"> <!--striped: design a table with alternate rows in different colors-->
-                                    <thead class="thead-dark"> <!--render the head dark-->
-                                        
-                                        <th>MCN</th>
-                                        <th>First name</th>
-                                        <th>Last name</th>
-                                        <th>Date of birth</th>
-                                        <th>Telephone number</th>
-                                        <th>Address</th>
-                                        <th>City</th>
-                                        <th>Province</th>
-                                        <th>Postal code</th>
-                                        <th>citizenship</th>
-                                        <th>Email address</th>
-                                        <th>&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php while ($row = $Employee->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) { ?>
-                                        <tr>
-                                        <td><?= $row["MCN"] ?></td>
-                                        <td><?= $row["first_name"] ?></td>
-                                        <td><?= $row["last_name"] ?></td>
-                                        <td><?= $row["date_of_birth"] ?></td>
-                                        <td><?= $row["telephone_number"] ?></td>
-                                        <td><?= $row["address"] ?></td>
-                                        <td><?= $row["city"] ?></td>
-                                        <td><?= $row["province"] ?></td>
-                                        <td><?= $row["postal_code"] ?></td>
-                                        <td><?= $row["citizenship"] ?></td>
-                                        <td><?= $row["email_address"] ?></td>
-                                        <td>
-                                        <!--edit button-->
-                                        <button type="button" class="btn btn-primary btn-sm w-100" 
-                                                data-toggle="modal"  data-target="#editEmployees"
-                                                
-                                                > 
-                                                <a 
-                                                style="font-weight:bold; color: black" >Edit
-                                                </a>
-                                        </button>
-                                        <!-- Button modal Content -->
-                                        <div id="editEmployees" class="modal fade" role="dialog" style="color:black ;">
-                                            <div class="modal-dialog modal-lg" role="content">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" style="background:#3e94f1 ;">
-                                                        <h4 class="modal-title">Edit Employees</h4>
-                                                        <button type="submit" class="close" data-dismiss="modal" >
-                                                        &times;
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body" style="background:floralwhite ;">
-                                                        <form class="form-group"id="edit-Employee" action="Employees/edit.php" method = "post">
-                                                            <label for="MCN">MCN number</label><br>
-                                                            <input type="number" name="MCN" id="MCN"  > <br>
-                                                            <label for="first_name">First name</label><br>
-                                                            <input type="text" name="first_name" id="first_name"> <br>
-                                                            <label for="last_name">Last name</label><br>
-                                                            <input type="text" name="last_name" id="last_name"  > <br>
-                                                            <label for="date_of_birth">Date of birth</label><br>
-                                                            <input type="date" name="date_of_birth" id="date_of_birth" > <br>
-                                                            <label for="telephone_number">Telephone number</label><br>
-                                                            <input type="text" name="telephone_number" id="telephone_number"> <br>
-                                                            <label for="address">address</label><br>
-                                                            <input type="text" name="address" id="address" > <br>
-                                                            <label for="city">City</label><br>
-                                                            <input type="text" name="city" id="city" > <br>
-                                                            <label for="province">Province</label><br>
-                                                            <input type="text" name="province" id="province" > <br>
-                                                            <label for="postal_code">Postal code</label><br>
-                                                            <input type="text" name="postal_code" id="postal_code"> <br>
-                                                            <label for="citizenship">Citizenship</label><br>
-                                                            <input type="text" name="citizenship" id="citizenship" > <br>
-                                                           <label for="email_address">Email address</label><br>
-                                                            <input type="text" name="email_address" id="email_address" > <br><br><br>
-                                                    </div>
-                                                    <div class="modal-footer" style="background:#3e94f1;">
-                                                        <div class="offset-md-2 col-md-10">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                            <button type="submit" class="btn btn-primary">Edit</button>
+                                <div class="table-responsive">
+                                    <!--table can scroll horizontally when using small screen devices-->
+                                    <table class="table table-striped">
+                                        <!--striped: design a table with alternate rows in different colors-->
+                                        <thead class="thead-dark">
+                                            <!--render the head dark-->
+
+                                            <th>MCN</th>
+                                            <th>First name</th>
+                                            <th>Last name</th>
+                                            <th>Date of birth</th>
+                                            <th>Telephone number</th>
+                                            <th>Address</th>
+                                            <th>City</th>
+                                            <th>Province</th>
+                                            <th>Postal code</th>
+                                            <th>citizenship</th>
+                                            <th>Email address</th>
+                                            <th>&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php while ($row = $Employee->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) { ?>
+                                            <tr>
+                                                <td><?= $row["MCN"] ?></td>
+                                                <td><?= $row["first_name"] ?></td>
+                                                <td><?= $row["last_name"] ?></td>
+                                                <td><?= $row["date_of_birth"] ?></td>
+                                                <td><?= $row["telephone_number"] ?></td>
+                                                <td><?= $row["address"] ?></td>
+                                                <td><?= $row["city"] ?></td>
+                                                <td><?= $row["province"] ?></td>
+                                                <td><?= $row["postal_code"] ?></td>
+                                                <td><?= $row["citizenship"] ?></td>
+                                                <td><?= $row["email_address"] ?></td>
+                                                <td>
+                                                    <!--edit button-->
+
+                                                    <button type="submit" class="btn btn-primary btn-sm w-100"
+                                                        data-toggle="modal" data-target="#editEmployees">
+                                                        <a style="font-weight:bold; color: black">Edit
+                                                        </a>
+                                                    </button>
+
+
+
+                                                    <!-- Button modal Content -->
+                                                    <div id="editEmployees" class="modal fade" role="dialog"
+                                                        style="color:black ;">
+                                                        <div class="modal-dialog modal-lg" role="content">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header" style="background:#3e94f1 ;">
+                                                                    <h4 class="modal-title">Edit Employees</h4>
+                                                                    <button type="submit" class="close"
+                                                                        data-dismiss="modal">
+                                                                        &times;
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body"
+                                                                    style="background:floralwhite ;">
+                                                                    <form class="form-group" id="edit-Employee"
+                                                                        action="Employees/edit.php" method="post">
+                                                                        <label for="MCN">MCN number</label><br>
+                                                                        <input type="number" name="MCN" id="MCN"> <br>
+                                                                        <label for="first_name">First name</label><br>
+                                                                        <input type="text" name="first_name"
+                                                                            id="first_name"> <br>
+                                                                        <label for="last_name">Last name</label><br>
+                                                                        <input type="text" name="last_name"
+                                                                            id="last_name"> <br>
+                                                                        <label for="date_of_birth">Date of
+                                                                            birth</label><br>
+                                                                        <input type="date" name="date_of_birth"
+                                                                            id="date_of_birth"> <br>
+                                                                        <label for="telephone_number">Telephone
+                                                                            number</label><br>
+                                                                        <input type="text" name="telephone_number"
+                                                                            id="telephone_number"> <br>
+                                                                        <label for="address">address</label><br>
+                                                                        <input type="text" name="address" id="address">
+                                                                        <br>
+                                                                        <label for="city">City</label><br>
+                                                                        <input type="text" name="city" id="city"> <br>
+                                                                        <label for="province">Province</label><br>
+                                                                        <input type="text" name="province"
+                                                                            id="province"> <br>
+                                                                        <label for="postal_code">Postal code</label><br>
+                                                                        <input type="text" name="postal_code"
+                                                                            id="postal_code"> <br>
+                                                                        <label for="citizenship">Citizenship</label><br>
+                                                                        <input type="text" name="citizenship"
+                                                                            id="citizenship"> <br>
+                                                                        <label for="email_address">Email
+                                                                            address</label><br>
+                                                                        <input type="text" name="email_address"
+                                                                            id="email_address"> <br><br><br>
+                                                                </div>
+                                                                <div class="modal-footer" style="background:#3e94f1;">
+                                                                    <div class="offset-md-2 col-md-10">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Cancel</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Edit</button>
+                                                                    </div>
+                                                                </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                        </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!--delete button-->
-                                        <button type="submit" class="btn btn-danger btn-sm w-100" onclick="return confirm('Are you sure you want to delete this record?')">
-                                                <a href="Employees/delete.php?MCN=<?=$row["MCN"]?>" 
-                                                style="font-weight:bold; color: black">Delete
-                                                </a>
+
+                                                    <!--delete button-->
+                                                    <button type="submit" class="btn btn-danger btn-sm w-100"
+                                                        onclick="return confirm('Are you sure you want to delete this record?')">
+                                                        <a href="Employees/delete.php?MCN=<?=$row["MCN"]?>"
+                                                            style="font-weight:bold; color: black">Delete
+                                                        </a>
+                                                    </button>
+
+
+                                                </td>
+                                            </tr>
+                                            <?php  } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!------------------------------------------------------------Employees end---------------------------------->
+
+                    <!------------------------------------------------------------Facility ---------------------------------->
+
+                    <div class="card">
+                        <div class="card-header" role="tab" id="Facilityhead">
+                            <div class="d-flex">
+                                <h3 class="mb-0">
+                                    <a data-toggle="collapse" data-target="#Facility">
+                                        Facility<small>Create/Delete/Edit/Display a Facility</small>
+                                    </a>
+                                </h3>
+                                <!--Create button-->
+                                <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
+                                    data-target="#createFacility">
+                                    <a style="font-weight:bold; color: black">Create</a>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Button modal Content -->
+                        <div id="createFacility" class="modal fade" role="dialog" style="color:black ;">
+                            <div class="modal-dialog modal-lg" role="content">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background:#3e94f1 ;">
+                                        <h4 class="modal-title">Create Facility</h4>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            &times;
                                         </button>
-                    
-                    
-                                        </td> 
-                                        </tr>
-                                        <?php  } ?>
-                                    </tbody>
-                                </table>
+                                    </div>
+                                    <div class="modal-body" style="background:floralwhite ;">
+                                        <form class="form-group" id="create-Facility" action="Facility/create.php"
+                                            method="post">
+                                            <label for="name">Name</label><br>
+                                            <input type="text" name="name" id="name"> <br>
+                                            <label for="address">Address</label><br>
+                                            <input type="text" name="address" id="address"> <br>
+                                            <label for="city">City</label><br>
+                                            <input type="text" name="city" id="city"> <br>
+                                            <label for="province">Province</label><br>
+                                            <input type="text" name="province" id="province"> <br>
+                                            <label for="postal_code">Postal code</label><br>
+                                            <input type="text" name="postal_code" id="postal_code"> <br>
+                                            <label for="phone_number">Phone number</label><br>
+                                            <input type="text" name="phone_number" id="phone_number"> <br>
+                                            <label for="web_address">Web address</label><br>
+                                            <input type="text" name="web_address" id="web_address"> <br>
+                                            <label for="type">Type</label><br>
+                                            <input type="text" name="type" id="type"> <br>
+                                            <label for="capacity">Capacity</label><br>
+                                            <input type="text" name="capacity" id="capacity"> <br>
+                                    </div>
+                                    <div class="modal-footer" style="background:#3e94f1;">
+                                        <div class="offset-md-2 col-md-10">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Create</button>
+                                        </div>
+                                    </div>
+                                    </form>
+
+
+                                </div>
                             </div>
+                        </div>
+                        <div role="tabpanel" class="collapse" id="Facility" data-parent="#accordion">
+
+                            <div class="card-body">
+                                <div class="col-12 col-sm-9">
+                                    <div class="table-responsive">
+                                        <!--table can scroll horizontally when using small screen devices-->
+                                        <table class="table table-striped">
+                                            <!--striped: design a table with alternate rows in different colors-->
+                                            <thead class="thead-dark">
+                                                <!--render the head dark-->
+
+                                                <th>Name </th>
+                                                <th>Address </th>
+                                                <th>City</th>
+                                                <th>Province</th>
+                                                <th>Postal code</th>
+                                                <th>Phone number</th>
+                                                <th>Web Address</th>
+                                                <th>Type</th>
+                                                <th>Capacity</th>
+                                                <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php while ($row = $Facility->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) { ?>
+                                                <tr>
+                                                    <td><?= $row["name"] ?></td>
+                                                    <td><?= $row["address"] ?></td>
+                                                    <td><?= $row["city"] ?></td>
+                                                    <td><?= $row["province"] ?></td>
+                                                    <td><?= $row["postal_code"] ?></td>
+                                                    <td><?= $row["phone_number"] ?></td>
+                                                    <td><?= $row["web_address"] ?></td>
+                                                    <td><?= $row["type"] ?></td>
+                                                    <td><?= $row["capacity"] ?></td>
+                                                    <td>
+                                                        <!--edit button-->
+                                                        <button type="submit" class="btn btn-primary btn-sm w-100"
+                                                            data-toggle="modal" data-target="#editFacilities">
+                                                            <a style="font-weight:bold; color: black">Edit
+                                                            </a>
+                                                        </button>
+                                                        <!-- Button modal Content -->
+                                                        <div id="editFacilities" class="modal fade" role="dialog"
+                                                            style="color:black ;">
+                                                            <div class="modal-dialog modal-lg" role="content">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header"
+                                                                        style="background:#3e94f1 ;">
+                                                                        <h4 class="modal-title">Edit Facilities</h4>
+                                                                        <button type="submit" class="close"
+                                                                            data-dismiss="modal">
+                                                                            &times;
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body"
+                                                                        style="background:floralwhite ;">
+                                                                        <form class="form-group" id="edit-Facility"
+                                                                            action="Facility/edit.php" method="post">
+                                                                            <label for="name">Name</label><br>
+                                                                            <input type="text" name="name" id="name">
+                                                                            <br>
+                                                                            <label for="address">Address</label><br>
+                                                                            <input type="text" name="address"
+                                                                                id="address"> <br>
+                                                                            <label for="city">City</label><br>
+                                                                            <input type="text" name="city" id="city">
+                                                                            <br>
+                                                                            <label for="province">Province</label><br>
+                                                                            <input type="text" name="province"
+                                                                                id="province"> <br>
+                                                                            <label for="postal_code">Postal
+                                                                                code</label><br>
+                                                                            <input type="text" name="postal_code"
+                                                                                id="postal_code"> <br>
+                                                                            <label for="phone_number">Phone
+                                                                                number</label><br>
+                                                                            <input type="text" name="phone_number"
+                                                                                id="phone_number"> <br>
+                                                                            <label for="web_address">Web
+                                                                                address</label><br>
+                                                                            <input type="text" name="web_address"
+                                                                                id="web_address"> <br>
+                                                                            <label for="type">Type</label><br>
+                                                                            <input type="text" name="type" id="type">
+                                                                            <br>
+                                                                            <label for="capacity">Capacity</label><br>
+                                                                            <input type="text" name="capacity"
+                                                                                id="capacity"> <br>
+
+                                                                    </div>
+                                                                    <div class="modal-footer"
+                                                                        style="background:#3e94f1;">
+                                                                        <div class="offset-md-2 col-md-10">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Cancel</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Edit</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--delete button-->
+                                                        <button type="submit" class="btn btn-danger btn-sm w-100"
+                                                            onclick="return confirm('Are you sure you want to delete this record?')">
+                                                            <a href="Facility/delete.php?name=<?=$row["name"]?>"
+                                                                style="font-weight:bold; color: black">Delete
+                                                            </a>
+                                                        </button>
+
+
+                                                    </td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                   
-                </div>
-<!------------------------------------------------------------Employees end---------------------------------->
-
-<!------------------------------------------------------------Facility ---------------------------------->
-
-                <div class="card">
-                    <div class="card-header" role="tab" id="Facilityhead">
-
-                        <h3 class="mb-0">
-                            <a data-toggle="collapse" data-target="#Facility">
-                                Facility<small>Create/Delete/Edit/Display a Facility</small>
-                            </a>
-                        </h3>
                     </div>
+                    <!------------------------------------------------------------Facility end ---------------------------------->
 
-                    <div role="tabpanel" class="collapse" id="Facility" data-parent="#accordion">
-                        <div class="card-body">
-                        <div class="col-12 col-sm-9">
-               <h2>Dacts &amp; Figures</h2>
-               <div class="table-responsive"> <!--table can scroll horizontally when using small screen devices-->
-                <table class="table table-striped"> <!--striped: design a table with alternate rows in different colors-->
-                    <thead class="thead-dark"><!--render the head dark-->
-                        <tr>
-                            <th>&nbsp;</th>
-                            <th>2013</th>
-                            <th>2014</th>
-                            <th>2015</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>Employees</th>
-                            <td>15</td>
-                            <td>30</td>
-                            <td>40</td>
-                        </tr>
-                        <tr>
-                            <th>Guests Served</th>
-                            <td>15000</td>
-                            <td>45000</td>
-                            <td>100,000</td>
-                        </tr>
-                        <tr>
-                            <th>Special Events</th>
-                            <td>3</td>
-                            <td>20</td>
-                            <td>45</td>
-                        </tr>
-                        <tr>
-                            <th>Annual Turnover</th>
-                            <td>$251,325</td>
-                            <td>$1,250,375</td>
-                            <td>~$3,000,000</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    <!------------------------------------------------------------Vaccination ---------------------------------->
+                    <div class="card">
+                        <div class="card-header" role="tab" id="Vaccinationhead">
+                            <div class="d-flex">
+                                <h3 class="mb-0">
+                                    <a data-toggle="collapse" data-target="#Vaccination">
+                                        Vaccination <small>Create/Delete/Edit/Display a Vaccination</small>
+                                    </a>
+                                </h3>
+                                <!--Create button-->
+                                <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
+                                    data-target="#createVaccination">
+                                    <a style="font-weight:bold; color: black">Create</a>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Button modal Content -->
+                        <div id="createVaccination" class="modal fade" role="dialog" style="color:black ;">
+                            <div class="modal-dialog modal-lg" role="content">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background:#3e94f1 ;">
+                                        <h4 class="modal-title">Create Vaccination</h4>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            &times;
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="background:floralwhite ;">
+                                        <form class="form-group" id="create-Vaccination" action="Vaccination/create.php"
+                                            method="post">
+                                            <label for="MCN">MCN</label><br>
+                                            <input type="number" name="MCN" id="MCN"> <br>
+                                            <label for="location">Location</label><br>
+                                            <input type="text" name="location" id="location"> <br>
+                                            <label for="type">Type</label><br>
+                                            <input type="text" name="type" id="type"> <br>
+                                            <label for="dose">Dose</label><br>
+                                            <input type="number" name="dose" id="dose"> <br>
+                                            <label for="date">Date</label><br>
+                                            <input type="date" name="date" id="date"> <br>
+
+                                    </div>
+                                    <div class="modal-footer" style="background:#3e94f1;">
+                                        <div class="offset-md-2 col-md-10">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Create</button>
+                                        </div>
+                                    </div>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--</div> -->
+
+                        <div role="tabpanel" class="collapse" id="Vaccination" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="col-12 col-sm-9">
+                                    <div class="table-responsive">
+                                        <!--table can scroll horizontally when using small screen devices-->
+                                        <table class="table table-striped">
+                                            <!--striped: design a table with alternate rows in different colors-->
+                                            <thead class="thead-dark">
+                                                <!--render the head dark-->
+
+                                                <th>MCN </th>
+                                                <th>Location </th>
+                                                <th>Type</th>
+                                                <th>Dose</th>
+                                                <th>Date</th>
+                                                <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php while ($row = $Vaccination->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) { ?>
+                                                <tr>
+                                                    <td><?= $row["MCN"] ?></td>
+                                                    <td><?= $row["location"] ?></td>
+                                                    <td><?= $row["type"] ?></td>
+                                                    <td><?= $row["dose"] ?></td>
+                                                    <td><?= $row["date"] ?></td>
+                                                    <td>
+                                                        <!--edit button-->
+                                                        <button type="submit" class="btn btn-primary btn-sm w-100"
+                                                            data-toggle="modal" data-target="#editVaccination">
+                                                            <a style="font-weight:bold; color: black">Edit
+                                                            </a>
+                                                        </button>
+                                                        <!-- Button modal Content -->
+                                                        <div id="editVaccination" class="modal fade" role="dialog"
+                                                            style="color:black ;">
+                                                            <div class="modal-dialog modal-lg" role="content">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header"
+                                                                        style="background:#3e94f1 ;">
+                                                                        <h4 class="modal-title">Edit Vaccination</h4>
+                                                                        <button type="submit" class="close"
+                                                                            data-dismiss="modal">
+                                                                            &times;
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body"
+                                                                        style="background:floralwhite ;">
+                                                                        <form class="form-group" id="edit-Facility"
+                                                                            action="Vaccination/edit.php" method="post">
+                                                                            <label for="MCN">MCN</label><br>
+                                                                            <input type="number" name="MCN" id="MCN">
+                                                                            <br>
+                                                                            <label for="location">Location</label><br>
+                                                                            <input type="text" name="location"
+                                                                                id="location"> <br>
+                                                                            <label for="type">Type</label><br>
+                                                                            <input type="text" name="type" id="type">
+                                                                            <br>
+                                                                            <label for="dose">Dose</label><br>
+                                                                            <input type="number" name="dose" id="dose">
+                                                                            <br>
+                                                                            <label for="date">Date</label><br>
+                                                                            <input type="date" name="date" id="date">
+                                                                            <br>
+
+                                                                    </div>
+                                                                    <div class="modal-footer"
+                                                                        style="background:#3e94f1;">
+                                                                        <div class="offset-md-2 col-md-10">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Cancel</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Edit</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--delete button-->
+                                                        <button type="submit" class="btn btn-danger btn-sm w-100"
+                                                            onclick="return confirm('Are you sure you want to delete this record?')">
+                                                            <a href="Vaccination/delete.php?MCN=<?=$row["MCN"]?>"
+                                                                style="font-weight:bold; color: black">Delete
+                                                            </a>
+                                                        </button>
+
+
+                                                    </td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                </div>
-<!------------------------------------------------------------Facility end ---------------------------------->
-
-                <div class="card">
-                    <div class="card-header" role="tab" id="Vaccinationhead">
-
-                        <h3 class="mb-0">
-                            <a data-toggle="collapse" data-target="#Vaccination">
-                                Vaccination <small>Create/Delete/Edit/Display a Vaccination</small>
-                            </a>
-                        </h3>
-                    </div>
-
-                    <div role="tabpanel" class="collapse" id="Vaccination" data-parent="#accordion">
-                        <div class="card-body">
-                            <p class="d-none d-sm-block">Blessed with the most discerning gustatory sense,
-                                Agumbe, our CTO, personally ensures that every dish that we serve meets his
-                                exacting tastes. Our chefs dread the tongue lashing that ensues if their dish
-                                does not meet his exacting standards. He lives by his motto, <em>You click
-                                    only if you survive my lick.</em></p>
+                    <!----------------------------------------------infection_history-------------------------------------------------->
+                    <div class="card">
+                        <div class="card-header" role="tab" id="Infectionhead">
+                            <div class="d-flex">
+                                <h3 class="mb-0">
+                                    <a data-toggle="collapse" data-target="#Infection">
+                                        Infection<small>Create/Delete/Edit/Display an Infection</small>
+                                    </a>
+                                </h3>
+                                <!--Create button-->
+                                <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
+                                    data-target="#createInfection">
+                                    <a style="font-weight:bold; color: black">Create</a>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <!-- Button modal Content -->
+                        <div id="createInfection" class="modal fade" role="dialog" style="color:black ;">
+                            <div class="modal-dialog modal-lg" role="content">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background:#3e94f1 ;">
+                                        <h4 class="modal-title">Create Infection</h4>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            &times;
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="background:floralwhite ;">
+                                        <form class="form-group" id="create-Infection" action="Infection/create.php"
+                                            method="post">
+                                            <label for="MCN">MCN</label><br>
+                                            <input type="number" name="MCN" id="MCN"> <br>
+                                            <label for="type">Type</label><br>
+                                            <input type="text" name="type" id="type"> <br>
+                                            <label for="times">Times</label><br>
+                                            <input type="number" name="times" id="times"> <br>
+                                            <label for="date">Date</label><br>
+                                            <input type="date" name="date" id="date"> <br>
 
-                <div class="card">
-                    <div class="card-header" role="tab" id="Infectionhead">
+                                    </div>
+                                    <div class="modal-footer" style="background:#3e94f1;">
+                                        <div class="offset-md-2 col-md-10">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Create</button>
+                                        </div>
+                                    </div>
+                                    </form>
 
-                        <h3 class="mb-0">
-                            <a data-toggle="collapse" data-target="#Infection">
-                                Infection<small>Create/Delete/Edit/Display an Infection</small>
-                            </a>
-                        </h3>
-                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--</div> -->
 
                         <div role="tabpanel" class="collapse" id="Infection" data-parent="#accordion">
                             <div class="card-body">
-                            <p class="d-none d-sm-block">Award winning three-star Michelin chef with wide
-                                International experience having worked closely with whos-who in the culinary
-                                world, he specializes in creating mouthwatering Indo-Italian fusion experiences.
-                                He says, <em>Put together the cuisines from the two craziest cultures, and you
-                                    get a winning hit! Amma Mia!</em></p>
+                                <div class="col-12 col-sm-9">
+                                    <div class="table-responsive">
+                                        <!--table can scroll horizontally when using small screen devices-->
+                                        <table class="table table-striped">
+                                            <!--striped: design a table with alternate rows in different colors-->
+                                            <thead class="thead-dark">
+                                                <!--render the head dark-->
+
+                                                <th>MCN </th>
+                                                <th>Type</th>
+                                                <th>Times</th>
+                                                <th>Date</th>
+                                                <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php while ($row = $Infection->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) { ?>
+                                                <tr>
+                                                    <td><?= $row["MCN"] ?></td>
+                                                    <td><?= $row["type"] ?></td>
+                                                    <td><?= $row["times"] ?></td>
+                                                    <td><?= $row["date"] ?></td>
+                                                    <td>
+                                                        <!--edit button-->
+                                                        <button type="submit" class="btn btn-primary btn-sm w-100"
+                                                            data-toggle="modal" data-target="#editInfection ">
+                                                            <a style="font-weight:bold; color: black">Edit
+                                                            </a>
+                                                        </button>
+                                                        <!-- Button modal Content -->
+                                                        <div id="editInfection" class="modal fade" role="dialog"
+                                                            style="color:black ;">
+                                                            <div class="modal-dialog modal-lg" role="content">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header"
+                                                                        style="background:#3e94f1 ;">
+                                                                        <h4 class="modal-title">Edit Infection</h4>
+                                                                        <button type="submit" class="close"
+                                                                            data-dismiss="modal">
+                                                                            &times;
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body"
+                                                                        style="background:floralwhite ;">
+                                                                        <form class="form-group" id="edit-Facility"
+                                                                            action="Infection/edit.php" method="post">
+                                                                            <label for="MCN">MCN</label><br>
+                                                                            <input type="number" name="MCN" id="MCN">
+                                                                            <br>
+                                                                            <label for="type">Type</label><br>
+                                                                            <input type="text" name="type" id="type">
+                                                                            <br>
+                                                                            <label for="times">Times</label><br>
+                                                                            <input type="number" name="times" id="times">
+                                                                            <br>
+                                                                            <label for="date">Date</label><br>
+                                                                            <input type="date" name="date" id="date">
+                                                                            <br>
+                                                                    </div>
+                                                                    <div class="modal-footer"
+                                                                        style="background:#3e94f1;">
+                                                                        <div class="offset-md-2 col-md-10">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Cancel</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Edit</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--delete button-->
+                                                        <button type="submit" class="btn btn-danger btn-sm w-100"
+                                                            onclick="return confirm('Are you sure you want to delete this record?')">
+                                                            <a href="Infection/delete.php?MCN=<?=$row["MCN"]?>"
+                                                                style="font-weight:bold; color: black">Delete
+                                                            </a>
+                                                        </button>
+
+
+                                                    </td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                </div>
-
+                    </div>
 
 
                 </div>
             </div>
         </div>
     </div>
-    
+
 
     <!--------------------------------------------------------------------------------------------------->
 
 
-    
+
     <!--------------------------------------------------------------------------------------------------->
 
     <footer class="footer ">
@@ -414,6 +842,7 @@ $Facility->execute();
     <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/da57742d83.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

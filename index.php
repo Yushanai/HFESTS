@@ -67,7 +67,7 @@
             <h3>The following functions can be realized in the Modify web page</h3>
             </div>  -->
             <div class="col col-sm order-sm-first col-md">
-                <a href="Modify/index.php">
+                <a href="./Modify.php">
                     <h2 class="mt-0">Modify</h2>
                 </a>
                 <h4 class="d-none d-sm-block">The following functions can be realized in the Modify page</h4>
@@ -160,7 +160,7 @@
                     <h5>Links</h5>
                     <ul class="list-unstyled">
                         <li><a href="./index.php">Home</a></li>
-                        <li><a href="Modify/index.php">Modify</a></li>
+                        <li><a href="./Modify.php">Modify</a></li>
                         <li><a href="./information.php">Infomation</a></li>
                         <li><a href="./schedule.php">Schedule</a></li>
                         <li><a href="./email.php">Email</a></li>

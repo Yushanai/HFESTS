@@ -48,6 +48,7 @@ $statement->execute();
                 <td><?= $row["citizenship"] ?></td>
                 <td><?= $row["email_address"] ?></td>
                 <td>
+
                     <button type="submit"><a href="./edit.php?MCN=<?=$row["MCN"]?>">Edit</a></button>
                     <button type="submit" onclick="return confirm('Are you sure you want to delete this record?')"><a href="./delete.php?MCN=<?=$row["MCN"]?>">Delete</a></button>
                     
