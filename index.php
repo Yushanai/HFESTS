@@ -32,11 +32,11 @@
                                 class="fa fa-hospital-o "></span> Home</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="Modify/index.php"><span
                                 class="fa fa-pencil  "></span>Modify</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="./information.php"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="information/index.php"><span
                                 class="fa fa-info "></span>Infomation</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="./schedule.php"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="schedule/index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="./email.php"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="email/index.php"><span
                                 class="fa fa-envelope-o  "></span>Email</a></li>
                 </ul>
             </div>
@@ -160,10 +160,10 @@
                     <h5>Links</h5>
                     <ul class="list-unstyled">
                         <li><a href="./index.php">Home</a></li>
-                        <li><a href="./Modify.php">Modify</a></li>
-                        <li><a href="./information.php">Infomation</a></li>
-                        <li><a href="./schedule.php">Schedule</a></li>
-                        <li><a href="./email.php">Email</a></li>
+                        <li><a href="Modify/index.php">Modify</a></li>
+                        <li><a href="information/index.php">Infomation</a></li>
+                        <li><a href="schedule/index.php">Schedule</a></li>
+                        <li><a href="email/index.php">Email</a></li>
                     </ul>
                 </div>
                 <div class="col-7 col-sm-5">

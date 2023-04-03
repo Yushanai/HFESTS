@@ -45,11 +45,11 @@ $Infection->execute();
                                 class="fa fa-hospital-o "></span> Home</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="./index.php"><span
                                 class="fa fa-pencil  "></span>Modify</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="./information.php"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="information/index.php"><span
                                 class="fa fa-info "></span>Infomation</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="./schedule.php"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="schedule/index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="./email.php"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="email/index.php"><span
                                 class="fa fa-envelope-o  "></span>Email</a></li>
                 </ul>
             </div>
@@ -60,9 +60,12 @@ $Infection->execute();
         <div class="container">
             <div class="row row-header">
                 <div class="col-12 col-sm-6 ">
-                    <h1>Health Facility Employee Status Tracking System</h1>
-                    <h5>The HFESTS system help health care facilities to
-                        keep track of their employees’ health status during the COVID-19 pandemic.</h5>
+                    <h1>Modify</h1>
+                    <h5>With Modify, you can easily create, delete, edit, and display a facility, employee, vaccination,
+                        or infection record with just a few clicks. Its intuitive and user-friendly interface makes
+                        it easy for anyone to use, and its robust feature set ensures that you have all the tools you
+                        need to manage your data effectively. Try Modify today and experience the power of streamlined
+                        data management!</h5>
                 </div>
                 <div class="col-12 col-sm align-items-center">
                     <img src="../img/logo.png" class="image-fluid">
