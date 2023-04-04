@@ -1,6 +1,20 @@
 <?php require_once './../database.php';
 $schedule = $conn->prepare('SELECT*FROM schedule');
 $schedule->execute();
+
+if (isset($_GET['MCN'])) {
+    // Retrieve schedule for the specified MCN
+    $statement = $conn->prepare("SELECT * FROM schedule WHERE MCN = :MCN ");
+    $statement->bindParam(":MCN", $_GET["MCN"]);
+    $statement->execute();
+    $employee = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    // Show the form
+    $formHidden = false;
+} else {
+    // Hide the form
+    $formHidden = true;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,11 +47,11 @@ $schedule->execute();
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link fa-lg" href="../index.php"> <span
                                 class="fa fa-hospital-o "></span> Home</a></li>
-                <li class="nav-item"><a class="nav-link fa-lg" href="./index.php"><span
+                <li class="nav-item"><a class="nav-link fa-lg" href="../Modify/index.php"><span
                                 class="fa fa-pencil  "></span>Modify</a></li>
                 <li class="nav-item"><a class="nav-link fa-lg" href="./information.php"><span
                                 class="fa fa-info "></span>Infomation</a></li>
-                <li class="nav-item"><a class="nav-link fa-lg" href="./schedule.php"><span
+                <li class="nav-item"><a class="nav-link fa-lg" href="./index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
                 <li class="nav-item"><a class="nav-link fa-lg" href="./email.php"><span
                                 class="fa fa-envelope-o  "></span>Email</a></li>
@@ -70,99 +84,65 @@ $schedule->execute();
 <!-------------------------------Assign/Delete/Edit schedule for an Employee---------------------------------->
 <div class="container">
    <div class="row row-content align-items-center">
-
-        <h2 class="mt-0">
-            <!--info button-->
-            <button type="button" class="btn btn-info btn-sm " data-toggle="modal"
-                    data-target="#infoSchedule">
-                <a style="font-weight:bold; color: black">Get info</a>
-            </button> /
-            <!--assign button-->
-            <button type="button" class="btn btn-success btn-sm " data-toggle="modal"
-                    data-target="#assignSchedule">
-                <a style="font-weight:bold; color: black">Assign</a>
-            </button>/
-            <!--delete button-->
-            <button type="button" class="btn btn-danger btn-sm"
-                    data-toggle="modal" data-target="#deleteSchedule">
-                <a style="font-weight:bold; color: black">Delete </a>
-            </button>/
-            <!--Edit button-->
-            <button type="button" class="btn btn-secondary btn-sm "
-                    data-toggle="modal" data-target="#editSchedule">
-                <a style="font-weight:bold; color: black">Edit </a>
-            </button> schedule for an employee.
-        </h2>
-
-        <div id="infoSchedule" class="modal fade" role="dialog" style="color:black ;">
-            <div class="modal-dialog modal-lg" role="content">
-                <div class="modal-content">
-                    <div class="modal-header" style="background:#3e94f1 ;">
-                        <h4 class="modal-title">Get schedule info</h4>
-                        <button type="button" class="close" data-dismiss="modal">
-                            &times;
-                        </button>
-                    </div>
-                    <div class="modal-body" style="background:floralwhite ;">
-                        <form method="post" action="info.php">
-                            <label for="mcn-input">Insert employee's MCN:</label>
-                            <input type="number" id="MCN" name="MCN" class="form-control" required>
-
-                    </div>
-                    <div class="modal-footer" style="background:#3e94f1;">
-                        <div class="offset-md-2 col-md-10">
-                            <button type="button" class="btn btn-secondary"
-                                    data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                    </div>
-                    </form>
-
-
-                </div>
-            </div>
-
+        <div class="col-12">
+            <h2 class="mt-0">Insert employees MCN to get schedule table<span class="badge badge-info">Info</span></h2>
         </div>
-
-        <!-- Modal for Assign schedule -->
-        <div id="assignSchedule" class="modal fade" role="dialog" style="color:black ;">
-            <div class="modal-dialog modal-lg" role="content">
-                <div class="modal-content">
-                    <div class="modal-header" style="background:#3e94f1 ;">
-                        <h4 class="modal-title">Assign schedule</h4>
-                        <button type="button" class="close" data-dismiss="modal">
-                            &times;
-                        </button>
-                    </div>
-                    <div class="modal-body" style="background:floralwhite ;">
-                        <form method="post" action="info.php">
-                            <div class="form-group">
-                                <label for="date-input">Date:</label>
-                                <input type="date" id="date-input" name="date" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="start-time-input">Start Time:</label>
-                                <input type="time" id="start-time-input" name="start-time" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="end-time-input">End Time:</label>
-                                <input type="time" id="end-time-input" name="end-time" class="form-control" required>
-                            </div>
-                    </div>
-                    <div class="modal-footer" style="background:#3e94f1;">
-                        <div class="offset-md-2 col-md-10">
-                            <button type="button" class="btn btn-secondary"
-                                    data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Create</button>
-                        </div>
-                    </div>
-                    </form>
+       <div class="col-12">
+       <form method="get" class="form-inline">
+           <div class="form-group mr-2">
+               <label for="mcn-input"></label>
+               <input type="number" id="MCN" name="MCN" class="form-control" required>
+           </div>
+           <button type="submit" class="btn btn-info btn-sm">
+               <span style="font-weight:bold; color: black">Get info</span>
+           </button>
+       </form>
+       </div>
 
 
-                </div>
-            </div>
+       <!-- Display the schedule table -->
+       <?php if (isset($employee)) { ?>
+       <!--table for schedule-->
+       <div class="col-12 col-sm">
+           <div class="table-responsive">
+               <!--table can scroll horizontally when using small screen devices-->
+               <table class="table table-striped">
+                   <!--striped: design a table with alternate rows in different colors-->
+                   <thead class="thead-dark">
+                   <!--render the head dark-->
+                   <tr>
+                   <th>Reference Number</th>
+                   <th>MCN</th>
+                   <th>Facility Name</th>
+                   <th>Date</th>
+                   <th>Start Time</th>
+                   <th>End Time</th>
 
-        </div>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($employee as $row) { ?>
+                    <tr>
+                       <td><?php echo $row['reference_number']; ?></td>
+                       <td><?php echo $row['MCN']; ?></td>
+                       <td><?php echo $row['name']; ?></td>
+                       <td><?php echo $row['date']; ?></td>
+                       <td><?php echo $row['startTime']; ?></td>
+                       <td><?php echo $row['endTime']; ?></td>
+                   </tr>
+               <?php } ?>
+               </tbody>
+           </table>
+           </div>
+       </div>
+       <?php } ?>
+
+       <!-- JavaScript to show the form -->
+       <script>
+           document.querySelector('#MCN').addEventListener('input', function() {
+               document.querySelector('form').removeAttribute('hidden');
+           });
+       </script>
 
     </div>
     <!----------------------------------------------------------------->

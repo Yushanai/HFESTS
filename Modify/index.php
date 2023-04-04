@@ -47,7 +47,7 @@ $Infection->execute();
                                 class="fa fa-pencil  "></span>Modify</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="information/index.php"><span
                                 class="fa fa-info "></span>Infomation</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="schedule/index.php"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="../schedule/index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="email/index.php"><span
                                 class="fa fa-envelope-o  "></span>Email</a></li>
