@@ -1,19 +1,31 @@
 <?php require_once './../database.php';
+//Schedule History
 $schedule = $conn->prepare('SELECT*FROM schedule');
 $schedule->execute();
+//------------------------------------------
 
-if (isset($_GET['MCN'])) {
+//Information searched by MCN
+if (isset($_GET['mcn'])) {
     // Retrieve schedule for the specified MCN
     $statement = $conn->prepare("SELECT * FROM schedule WHERE MCN = :MCN ");
-    $statement->bindParam(":MCN", $_GET["MCN"]);
+    $statement->bindParam(":MCN", $_GET["mcn"]);
     $statement->execute();
     $employee = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    // Show the form
-    $formHidden = false;
-} else {
-    // Hide the form
-    $formHidden = true;
+
+}
+//-------------------------------------------
+//Information searched by a specific period of time.
+if(isset($_GET["MCN"]) && isset($_GET["startDate"]) && isset($_GET["endDate"])) {
+    $statement = $conn->prepare("SELECT name, date, startTime, endTime 
+        FROM schedule 
+        WHERE MCN = :MCN AND date BETWEEN :startDate AND :endDate 
+        ORDER BY name ASC, date ASC, startTime ASC");
+    $statement->bindParam(":MCN", $_GET["MCN"]);
+    $statement->bindParam(":startDate", $_GET["startDate"]);
+    $statement->bindParam(":endDate", $_GET["endDate"]);
+    $statement->execute();
+    $scheduleDetails = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 <!DOCTYPE html>
@@ -88,10 +100,10 @@ if (isset($_GET['MCN'])) {
             <h2 class="mt-0">Insert employees MCN to get schedule table<span class="badge badge-info">Info</span></h2>
         </div>
        <div class="col-12">
-       <form method="get" class="form-inline">
+       <form method="get" class="form-inline" onsubmit="showTable1();">
            <div class="form-group mr-2">
-               <label for="mcn-input"></label>
-               <input type="number" id="MCN" name="MCN" class="form-control" required>
+               <label for="mcn-input"> MCN:</label>
+               <input type="number" id="mcn" name="mcn" class="form-control" required>
            </div>
            <button type="submit" class="btn btn-info btn-sm">
                <span style="font-weight:bold; color: black">Get info</span>
@@ -100,58 +112,125 @@ if (isset($_GET['MCN'])) {
        </div>
 
 
+
        <!-- Display the schedule table -->
        <?php if (isset($employee)) { ?>
-       <!--table for schedule-->
-       <div class="col-12 col-sm">
-           <div class="table-responsive">
-               <!--table can scroll horizontally when using small screen devices-->
-               <table class="table table-striped">
-                   <!--striped: design a table with alternate rows in different colors-->
-                   <thead class="thead-dark">
-                   <!--render the head dark-->
-                   <tr>
-                   <th>Reference Number</th>
-                   <th>MCN</th>
-                   <th>Facility Name</th>
-                   <th>Date</th>
-                   <th>Start Time</th>
-                   <th>End Time</th>
+           <!--table for schedule-->
+           <div class="col-12 col-sm" id="MCNTable">
+               <div class="table-responsive">
+                   <!--table can scroll horizontally when using small screen devices-->
+                   <table class="table table-striped">
+                       <!--striped: design a table with alternate rows in different colors-->
+                       <thead class="thead-dark">
+                       <!--render the head dark-->
+                       <tr>
+                           <th>Reference Number</th>
+                           <th>MCN</th>
+                           <th>Facility Name</th>
+                           <th>Date</th>
+                           <th>Start Time</th>
+                           <th>End Time</th>
+
+                       </tr>
+                       </thead>
+                       <tbody>
+                       <?php foreach ($employee as $row) { ?>
+                           <tr>
+                               <td><?php echo $row['reference_number']; ?></td>
+                               <td><?php echo $row['MCN']; ?></td>
+                               <td><?php echo $row['name']; ?></td>
+                               <td><?php echo $row['date']; ?></td>
+                               <td><?php echo $row['startTime']; ?></td>
+                               <td><?php echo $row['endTime']; ?></td>
+                           </tr>
+                       <?php } ?>
+                       </tbody>
+                   </table>
+               </div>
+           </div>
+       <?php } ?>
+
+       <!-- Add JavaScript to show the table when the button is clicked -->
+       <script>
+           function showTable1() {
+               document.getElementById("MCNTable").classList.remove("d-none");
+           }
+       </script>
+
+    </div>
+    <!--------------------------------Specific period of time--------------------------------->
+    <div class="row row-content">
+        <div class="col-12 col-sm-9">
+            <div class="col-12">
+                <h2 class="mt-0"> Get the details of all the schedules she/he has been
+                    scheduled during a specific period of time.<span class="badge badge-info">Info</span></h2>
+            </div>
+            <div class="col-12">
+                <form method="get" onsubmit="showTable();" >
+                    <div class="form-group ">
+                        <label for="mcn-input"> MCN:</label>
+                        <input type="number" id="MCN" name="MCN" class="form-control" required>
+                    </div>
+                    <div class="form-group ">
+                        <label for="startDate-input">Start Date:</label>
+                        <input type="date" id="startDate" name="startDate" class="form-control" required>
+                    </div>
+                    <div class="form-group ">
+                        <label for="endDate-input">End Date: </label>
+                        <input type="date" id="endDate" name="endDate" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-info btn-sm">
+                        <span style="font-weight:bold; color: black">Get info</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    <!-- Display the schedule table -->
+    <?php if (isset($scheduleDetails)) { ?>
+        <!--table for schedule-->
+        <div class="col-12 col-sm" id="scheduleTable">
+            <div class="table-responsive">
+                <!--table can scroll horizontally when using small screen devices-->
+                <table class="table table-striped">
+                    <!--striped: design a table with alternate rows in different colors-->
+                    <thead class="thead-dark">
+                    <!--render the head dark-->
+                    <tr>
+                        <th>Facility Name</th>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
 
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($employee as $row) { ?>
-                    <tr>
-                       <td><?php echo $row['reference_number']; ?></td>
-                       <td><?php echo $row['MCN']; ?></td>
-                       <td><?php echo $row['name']; ?></td>
-                       <td><?php echo $row['date']; ?></td>
-                       <td><?php echo $row['startTime']; ?></td>
-                       <td><?php echo $row['endTime']; ?></td>
-                   </tr>
-               <?php } ?>
-               </tbody>
-           </table>
-           </div>
-       </div>
-       <?php } ?>
-
-       <!-- JavaScript to show the form -->
-       <script>
-           document.querySelector('#MCN').addEventListener('input', function() {
-               document.querySelector('form').removeAttribute('hidden');
-           });
-       </script>
-
+                    <?php foreach ($scheduleDetails as $row) { ?>
+                        <tr>
+                            <td><?php echo $row['name']; ?></td>
+                            <td><?php echo $row['date']; ?></td>
+                            <td><?php echo $row['startTime']; ?></td>
+                            <td><?php echo $row['endTime']; ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <?php } ?>
+    <!-- Add JavaScript to show the table when the button is clicked -->
+    <script>
+        function showTable() {
+            document.getElementById("scheduleTable").classList.remove("d-none");
+        }
+    </script>
     </div>
-    <!----------------------------------------------------------------->
-
+<!----------------------------------------------------------------->
     <div class="row row-content">
         <div class="col-12 col-sm-9">
             <!--Accordion-->
             <div id="accordion">
-                <!------------------------------------------------------------Employees---------------------------------->
+                <!------------------------------------------------------------Schedule Employees---------------------------------->
                 <div class="card">
                     <div class="card-header" role="tab" id="Schedulehead">
                         <div class="d-flex">
@@ -210,7 +289,7 @@ if (isset($_GET['MCN'])) {
                         <!----------------------table for schedule--------------------------------------->
                         <div class="card-body">
                             <!--table for schedule-->
-                            <div class="col-12 col-sm">
+                            <div class="col-12 col-sm ">
                                 <div class="table-responsive">
                                     <!--table can scroll horizontally when using small screen devices-->
                                     <table class="table table-striped">
@@ -313,8 +392,9 @@ if (isset($_GET['MCN'])) {
             </div>
         </div>
     </div>
-    <!--------------------------------------------------------------------------------------------------->
 </div>
+    <!--------------------------------------------------------------------------------------------------->
+
 <!-----------------------------------Content end---------------------------------------------------------------->
 
 <footer class="footer ">
