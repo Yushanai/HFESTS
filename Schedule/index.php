@@ -28,9 +28,8 @@ if(isset($_GET["MCN"]) && isset($_GET["startDate"]) && isset($_GET["endDate"])) 
     $scheduleDetails = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
-//Retrieve the facility from the form submission
-if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'getInfo') {
+$facility = $_GET['facility'];
+if (isset($_GET["facility"]) && isset($_GET["action"]) && $_GET['action'] == 'getInfo') {
     // Query to retrieve the doctors and nurses who have been on schedule to work at the given facility in the last two weeks
     $statement = $conn->prepare("SELECT DISTINCT employees.first_name, employees.last_name, workat.role
         FROM employees
@@ -41,12 +40,10 @@ if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'getI
         ORDER BY workat.role ASC, employees.first_name ASC");
 
     $statement->bindParam(":facility", $facility);
-    $success = $statement->execute();
-
-    if ($success) {
-        $getInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
+    $statement->execute();
+    $getInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
 //Total hours
 if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'totalHours') {
     $facility = $_GET['facility'];
@@ -69,7 +66,7 @@ if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'tota
 }
 ?>
 <!DOCTYPE html>
-<div lang="en">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -86,7 +83,7 @@ if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'tota
     <!-- endbuild -->
     <title>Schedule</title>
 </head>
-
+<body>
 <!--------------------navigation bar---------------------->
 <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
     <div class="container">
@@ -105,7 +102,7 @@ if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'tota
                                 class="fa fa-info "></span>Infomation</a></li>
                 <li class="nav-item"><a class="nav-link fa-lg" href="./index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
-                <li class="nav-item"><a class="nav-link fa-lg" href="#"><span
+                <li class="nav-item"><a class="nav-link fa-lg" href="../Email/index.php"><span
                                 class="fa fa-envelope-o  "></span>Email</a></li>
             </ul>
         </div>
@@ -189,13 +186,6 @@ if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'tota
                </div>
            </div>
        <?php } ?>
-
-       <!-- Add JavaScript to show the table when the button is clicked -->
-       <script>
-           function showTable1() {
-               document.getElementById("MCNTable").classList.remove("d-none");
-           }
-       </script>
 
     </div>
     <!--------------------------------Specific period of time--------------------------------->
@@ -535,7 +525,7 @@ if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'tota
                     <li><a href="Modify/index.php">Modify</a></li>
                     <li><a href="information/index.php">Infomation</a></li>
                     <li><a href="./index.php">Schedule</a></li>
-                    <li><a href="email/index.php">Email</a></li>
+                    <li><a href="Email/index.php">Email</a></li>
                 </ul>
             </div>
             <div class="col-7 col-sm-5">

@@ -36,7 +36,7 @@
                                 class="fa fa-info "></span>Infomation</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="Schedule/index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="#"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="Email/index.php"><span
                                 class="fa fa-envelope-o  "></span>Email</a></li>
                 </ul>
             </div>
@@ -133,7 +133,7 @@
             <h3>The following functions can be realized in the Information page</h3>
             </div> -->
             <div class="col col-sm order-sm-first col-md">
-                <a href="#">
+                <a href="Email/index.php">
                     <h2 class="mt-0">Email</h2>
                 </a>
                 <h4 class="d-none d-sm-block">The following functions can be realized in the Email page</h4>
