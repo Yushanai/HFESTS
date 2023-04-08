@@ -28,8 +28,9 @@ if(isset($_GET["MCN"]) && isset($_GET["startDate"]) && isset($_GET["endDate"])) 
     $scheduleDetails = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-$facility = $_GET['facility'];
+
 if (isset($_GET["facility"]) && isset($_GET["action"]) && $_GET['action'] == 'getInfo') {
+    $facility = $_GET['facility'];
     // Query to retrieve the doctors and nurses who have been on schedule to work at the given facility in the last two weeks
     $statement = $conn->prepare("SELECT DISTINCT employees.first_name, employees.last_name, workat.role
         FROM employees
