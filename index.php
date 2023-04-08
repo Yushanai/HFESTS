@@ -32,11 +32,11 @@
                                 class="fa fa-hospital-o "></span> Home</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="Modify/index.php"><span
                                 class="fa fa-pencil  "></span>Modify</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="information/index.php"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="#"><span
                                 class="fa fa-info "></span>Infomation</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="schedule/index.php"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="Schedule/index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="email/index.php"><span
+                    <li class="nav-item"><a class="nav-link fa-lg" href="#"><span
                                 class="fa fa-envelope-o  "></span>Email</a></li>
                 </ul>
             </div>
@@ -67,7 +67,7 @@
             <h3>The following functions can be realized in the Modify web page</h3>
             </div>  -->
             <div class="col col-sm order-sm-first col-md">
-                <a href="./Modify.php">
+                <a href="Modify/index.php">
                     <h2 class="mt-0">Modify</h2>
                 </a>
                 <h4 class="d-none d-sm-block">The following functions can be realized in the Modify page</h4>
@@ -86,7 +86,7 @@
             <h3>The following functions can be realized in the Information page</h3>
             </div> -->
             <div class="col col-sm order-sm-first col-md">
-                <a href="./information.php">
+                <a href="#">
                     <h2 class="mt-0">Information</h2>
                 </a>
                 <h4 class="d-none d-sm-block">The following functions can be realized in the Information page</h4>
@@ -110,7 +110,7 @@
             <h3>The following functions can be realized in the Information page</h3>
             </div> -->
             <div class="col col-sm order-sm-first col-md">
-                <a href="./schedule.php">
+                <a href="schedule/index.php">
                     <h2 class="mt-0">Schedule</h2>
                 </a>
                 <h4 class="d-none d-sm-block">The following functions can be realized in the Schedule page</h4>
@@ -133,7 +133,7 @@
             <h3>The following functions can be realized in the Information page</h3>
             </div> -->
             <div class="col col-sm order-sm-first col-md">
-                <a href="./email.php">
+                <a href="#">
                     <h2 class="mt-0">Email</h2>
                 </a>
                 <h4 class="d-none d-sm-block">The following functions can be realized in the Email page</h4>

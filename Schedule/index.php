@@ -15,21 +15,61 @@ if (isset($_GET['mcn'])) {
 
 }
 //-------------------------------------------
+
 //Information searched by a specific period of time.
 if(isset($_GET["MCN"]) && isset($_GET["startDate"]) && isset($_GET["endDate"])) {
     $statement = $conn->prepare("SELECT name, date, startTime, endTime 
         FROM schedule 
         WHERE MCN = :MCN AND date BETWEEN :startDate AND :endDate 
         ORDER BY name ASC, date ASC, startTime ASC");
-    $statement->bindParam(":MCN", $_GET["MCN"]);
-    $statement->bindParam(":startDate", $_GET["startDate"]);
+    $statement->bindParam(":MCN", $_GET["MCN"]);    $statement->bindParam(":startDate", $_GET["startDate"]);
     $statement->bindParam(":endDate", $_GET["endDate"]);
     $statement->execute();
     $scheduleDetails = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+//Retrieve the facility from the form submission
+if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'getInfo') {
+    // Query to retrieve the doctors and nurses who have been on schedule to work at the given facility in the last two weeks
+    $statement = $conn->prepare("SELECT DISTINCT employees.first_name, employees.last_name, workat.role
+        FROM employees
+        JOIN workat ON employees.MCN = workat.MCN
+        JOIN schedule ON workat.MCN = schedule.MCN 
+        WHERE workat.Fname = :facility AND schedule.date >= DATE_SUB(CURDATE(), INTERVAL 2 WEEK) AND workat.role IN ('Doctor', 'Nurse')
+        GROUP BY employees.first_name, employees.last_name, workat.role
+        ORDER BY workat.role ASC, employees.first_name ASC");
+
+    $statement->bindParam(":facility", $facility);
+    $success = $statement->execute();
+
+    if ($success) {
+        $getInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+//Total hours
+if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'totalHours') {
+    $facility = $_GET['facility'];
+    $statement = $conn->prepare("SELECT workat.role,SUM(TIME_TO_SEC(TIMEDIFF(schedule.endTime, schedule.startTime))) / 3600 AS total_hours
+        FROM schedule
+        JOIN workat ON schedule.MCN = workat.MCN
+        WHERE workat.Fname = :facility AND schedule.date < CURDATE() AND schedule.name = :facility
+        GROUP BY workat.role
+        ORDER BY workat.role ASC");
+    $statement->bindParam(":facility", $facility);
+    $success = $statement->execute();
+
+    if ($success) {
+        $totalHours = $statement->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        $errorInfo = $statement->errorInfo();
+        $errorMessage = $errorInfo[2];
+        echo "Error retrieving total hours: $errorMessage";
+    }
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<div lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -61,11 +101,11 @@ if(isset($_GET["MCN"]) && isset($_GET["startDate"]) && isset($_GET["endDate"])) 
                                 class="fa fa-hospital-o "></span> Home</a></li>
                 <li class="nav-item"><a class="nav-link fa-lg" href="../Modify/index.php"><span
                                 class="fa fa-pencil  "></span>Modify</a></li>
-                <li class="nav-item"><a class="nav-link fa-lg" href="./information.php"><span
+                <li class="nav-item"><a class="nav-link fa-lg" href="#"><span
                                 class="fa fa-info "></span>Infomation</a></li>
                 <li class="nav-item"><a class="nav-link fa-lg" href="./index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
-                <li class="nav-item"><a class="nav-link fa-lg" href="./email.php"><span
+                <li class="nav-item"><a class="nav-link fa-lg" href="#"><span
                                 class="fa fa-envelope-o  "></span>Email</a></li>
             </ul>
         </div>
@@ -105,7 +145,7 @@ if(isset($_GET["MCN"]) && isset($_GET["startDate"]) && isset($_GET["endDate"])) 
                <label for="mcn-input"> MCN:</label>
                <input type="number" id="mcn" name="mcn" class="form-control" required>
            </div>
-           <button type="submit" class="btn btn-info btn-sm">
+           <button type="submit" class="btn btn-info ">
                <span style="font-weight:bold; color: black">Get info</span>
            </button>
        </form>
@@ -179,7 +219,7 @@ if(isset($_GET["MCN"]) && isset($_GET["startDate"]) && isset($_GET["endDate"])) 
                         <label for="endDate-input">End Date: </label>
                         <input type="date" id="endDate" name="endDate" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-info btn-sm">
+                    <button type="submit" class="btn btn-info ">
                         <span style="font-weight:bold; color: black">Get info</span>
                     </button>
                 </form>
@@ -392,9 +432,97 @@ if(isset($_GET["MCN"]) && isset($_GET["startDate"]) && isset($_GET["endDate"])) 
             </div>
         </div>
     </div>
-</div>
-    <!--------------------------------------------------------------------------------------------------->
 
+<!-------------------------------------------For a given facility name-------------------------------------------------------->'
+    <div class="row row-content align-items-center">
+        <div class="col-12">
+            <h2 class="mt-0">Insert Facility  to get info<span class="badge badge-info">Info</span></h2>
+        </div>
+        <div class="col-12">
+            <form method="get" class="form-inline">
+                <div class="form-group mr-2">
+                    <label for="facility-input"> Facility:</label>
+                    <input type="text" id="facility" name="facility" class="form-control" required>
+                </div>
+                <div class="btn-group">
+                <button type="submit" class="btn btn-info" name="action" value="getInfo">
+                    <span style="font-weight:bold; color: black">Get info</span>
+                </button>
+                <button type="submit" class="btn btn-info"name="action" value="totalHours">
+                    <span style="font-weight:bold; color: black">Total hours of every roles</span>
+                </button>
+                </div>
+            </form>
+        </div>
+
+
+
+        <!-- Display the schedule table -->
+        <?php if (isset($getInfo)) { ?>
+        <!--table for schedule-->
+        <div class="col-12 col-sm" id="MCNTable">
+            <div class="table-responsive">
+                <!--table can scroll horizontally when using small screen devices-->
+                <table class="table table-striped">
+                    <!--striped: design a table with alternate rows in different colors-->
+                    <thead class="thead-dark">
+                    <!--render the head dark-->
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Role</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php foreach ($getInfo as $row ) { ?>
+                        <tr>
+                            <td><?php echo $row['first_name']; ?></td>
+                            <td><?php echo $row['last_name']; ?></td>
+                            <td><?php echo $row['role']; ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <?php } ?>
+        <!-- Display the total hour table -->
+        <?php if (isset($totalHours)) { ?>
+            <!--table for schedule-->
+            <div class="col-12 col-sm" id="MCNTable">
+                <div class="table-responsive">
+                    <!--table can scroll horizontally when using small screen devices-->
+                    <table class="table table-striped">
+                        <!--striped: design a table with alternate rows in different colors-->
+                        <thead class="thead-dark">
+                        <!--render the head dark-->
+                        <tr>
+                            <th>Role</th>
+                            <th>Total Hours</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if (count($totalHours) > 0) { ?>
+                        <?php foreach ($totalHours as $row ) { ?>
+                            <tr>
+                                <td><?php echo $row['role']; ?></td>
+                                <td><?php echo $row['total_hours']; ?></td>
+                            </tr>
+                        <?php } ?>
+                        <?php } else { ?>
+                            <tr>
+                                <td colspan="2" style="text-align:center;">No results to display</td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+</div>
 <!-----------------------------------Content end---------------------------------------------------------------->
 
 <footer class="footer ">
