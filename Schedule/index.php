@@ -65,6 +65,23 @@ if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'tota
         echo "Error retrieving total hours: $errorMessage";
     }
 }
+//Q15
+$Facility15=$conn->prepare("SELECT e.first_name, e.last_name, MIN(w.start_time) AS first_day_work, e.date_of_birth, e.email_address, SUM(TIMESTAMPDIFF(HOUR, s.startTime, s.endTime)) AS total_hours_scheduled
+FROM employees e
+JOIN workat w ON e.MCN = w.MCN
+JOIN schedule s ON e.MCN = s.MCN
+WHERE w.role = 'Nurse' AND w.start_time = (
+    SELECT MAX(w2.start_time)
+    FROM workat w2
+    WHERE w2.MCN = e.MCN AND w2.role = 'Nurse'
+)
+GROUP BY e.MCN
+ORDER BY total_hours_scheduled DESC
+LIMIT 1;
+
+
+");
+$Facility15->execute();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,8 +116,8 @@ if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'tota
                                 class="fa fa-hospital-o "></span> Home</a></li>
                 <li class="nav-item"><a class="nav-link fa-lg" href="../Modify/index.php"><span
                                 class="fa fa-pencil  "></span>Modify</a></li>
-                <li class="nav-item"><a class="nav-link fa-lg" href="#"><span
-                                class="fa fa-info "></span>Infomation</a></li>
+                <li class="nav-item"><a class="nav-link fa-lg" href="../Information/index.php"><span
+                                class="fa fa-info "></span>Information</a></li>
                 <li class="nav-item"><a class="nav-link fa-lg" href="./index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
                 <li class="nav-item"><a class="nav-link fa-lg" href="../Email/index.php"><span
@@ -513,6 +530,62 @@ if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'tota
             </div>
         <?php } ?>
     </div>
+    </div>
+
+<!-------------------------------.Q15  Get details of the nurse(s) who is/are currently working and has the highest number of hours ---------->
+<div class="row row-content  align-items-center">
+    <div class="col-12">
+        <h2>Question 15: Get details of the nurse(s) who is/are currently working and has the highest number of hours. </h2>
+        <!--Accordion-->
+        <div id="accordion">
+
+            <div class="card">
+                <div class="card-header " role="tab" id="Q15TableHead">
+                    <div class="d-flex">
+                        <h3 class="mb-0">
+                            <a data-toggle="collapse" data-target="#Q15Table">
+                                Details of the nurse(s) table
+                            </a>
+                    </div>
+                </div>
+                <!--table for Facilities-->
+                <div role="tabpanel" class="show" id="Q15Table" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="col-12 col-sm">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead class="thead-dark">
+                                    <th>First_name</th>
+                                    <th>Last name</th>
+                                    <th>First day of work </th>
+                                    <th>Date of birth</th>
+                                    <th>Email address</th>
+                                    <th>total number of hours scheduled </th>
+
+
+                                    </thead>
+                                    <tbody>
+                                    <?php while ($row = $Facility15->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) { ?>
+                                        <tr>
+                                            <td><?= $row["first_name"] ?></td>
+                                            <td><?= $row["last_name"] ?></td>
+                                            <td><?= $row["first_day_work"] ?></td>
+                                            <td><?= $row["date_of_birth"] ?></td>
+                                            <td><?= $row["email_address"] ?></td>
+                                            <td><?= $row["total_hours_scheduled"] ?></td>
+                                        </tr>
+                                    <?php  } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 <!-----------------------------------Content end---------------------------------------------------------------->
 

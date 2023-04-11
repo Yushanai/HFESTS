@@ -32,8 +32,8 @@
                                 class="fa fa-hospital-o "></span> Home</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="Modify/index.php"><span
                                 class="fa fa-pencil  "></span>Modify</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="#"><span
-                                class="fa fa-info "></span>Infomation</a></li>
+                    <li class="nav-item"><a class="nav-link fa-lg" href="Information/index.php"><span
+                                class="fa fa-info "></span>Information</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="Schedule/index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="Email/index.php"><span
@@ -86,7 +86,7 @@
             <h3>The following functions can be realized in the Information page</h3>
             </div> -->
             <div class="col col-sm order-sm-first col-md">
-                <a href="#">
+                <a href="Information/index.php">
                     <h2 class="mt-0">Information</h2>
                 </a>
                 <h4 class="d-none d-sm-block">The following functions can be realized in the Information page</h4>
@@ -161,9 +161,9 @@
                     <ul class="list-unstyled">
                         <li><a href="./index.php">Home</a></li>
                         <li><a href="Modify/index.php">Modify</a></li>
-                        <li><a href="information/index.php">Infomation</a></li>
-                        <li><a href="schedule/index.php">Schedule</a></li>
-                        <li><a href="email/index.php">Email</a></li>
+                        <li><a href="Informationnformation/index.php">Infomation</a></li>
+                        <li><a href="Schedule/index.php">Schedule</a></li>
+                        <li><a href="Email/index.php">Email</a></li>
                     </ul>
                 </div>
                 <div class="col-7 col-sm-5">

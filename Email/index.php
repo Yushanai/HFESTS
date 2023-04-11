@@ -51,8 +51,8 @@ if(isset($_GET['facility'])){
                                 class="fa fa-hospital-o "></span> Home</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="../Modify/index.php"><span
                                 class="fa fa-pencil  "></span>Modify</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="#"><span
-                                class="fa fa-info "></span>Infomation</a></li>
+                    <li class="nav-item"><a class="nav-link fa-lg" href="../Information/index.php"><span
+                                class="fa fa-info "></span>Information</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="../Schedule/index.php"><span
                                 class="fa fa-calendar-o "></span>Schedule</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="./index.php"><span
@@ -195,7 +195,7 @@ if(isset($_GET['facility'])){
                     <ul class="list-unstyled">
                         <li><a href="../index.php">Home</a></li>
                         <li><a href="Modify/index.php">Modify</a></li>
-                        <li><a href="information/index.php">Infomation</a></li>
+                        <li><a href="Information/index.php">Information</a></li>
                         <li><a href="./index.php">Schedule</a></li>
                         <li><a href="email/index.php">Email</a></li>
                     </ul>
