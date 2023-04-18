@@ -63,12 +63,14 @@ $Facility14->execute();
 $Facility16=$conn->prepare("SELECT e.first_name, e.last_name, MIN(w.start_time) AS first_day_work, w.role, e.date_of_birth, e.email_address, SUM(TIMESTAMPDIFF(HOUR, s.startTime, s.endTime)) AS total_hours_scheduled
 FROM employees e
 JOIN workat w ON e.MCN = w.MCN
-JOIN infection_history ih ON e.MCN = ih.MCN
-JOIN schedule s ON e.MCN = w.MCN
-WHERE w.role IN ('Nurse', 'Doctor') AND ih.type = 'COVID-19'
+INNER JOIN schedule s ON e.MCN = s.MCN
+WHERE w.role IN ('Nurse', 'Doctor') AND e.MCN IN (
+    SELECT MCN
+    FROM infection_history
+    WHERE type = 'COVID-19' AND times>=3
+)
 GROUP BY e.MCN
-HAVING COUNT(ih.times) >= 3
-ORDER BY w.role ASC, e.first_name ASC, e.last_name ASC; 
+ORDER BY w.role ASC, e.first_name ASC, e.last_name ASC;
 
 ");
 $Facility16->execute();
