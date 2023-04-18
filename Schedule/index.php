@@ -28,7 +28,7 @@ if(isset($_GET["MCN"]) && isset($_GET["startDate"]) && isset($_GET["endDate"])) 
     $scheduleDetails = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
+//Q11
 if (isset($_GET["facility"]) && isset($_GET["action"]) && $_GET['action'] == 'getInfo') {
     $facility = $_GET['facility'];
     // Query to retrieve the doctors and nurses who have been on schedule to work at the given facility in the last two weeks
@@ -45,13 +45,13 @@ if (isset($_GET["facility"]) && isset($_GET["action"]) && $_GET['action'] == 'ge
     $getInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-//Total hours
+//Total hours 12
 if (isset($_GET["facility"]) &&isset($_GET["action"])&& $_GET['action'] == 'totalHours') {
     $facility = $_GET['facility'];
     $statement = $conn->prepare("SELECT workat.role,SUM(TIME_TO_SEC(TIMEDIFF(schedule.endTime, schedule.startTime))) / 3600 AS total_hours
         FROM schedule
         JOIN workat ON schedule.MCN = workat.MCN
-        WHERE workat.Fname = :facility AND schedule.date < CURDATE() AND schedule.name = :facility
+        WHERE workat.Fname = :facility  AND schedule.name = :facility
         GROUP BY workat.role
         ORDER BY workat.role ASC");
     $statement->bindParam(":facility", $facility);
