@@ -53,9 +53,10 @@ WHERE w.role = 'Doctor' AND w.Faddress IN (
     SELECT address
     FROM facilities
     WHERE province = 'Québec'
-)
-GROUP BY e.MCN
+) AND (w.end_time IS NULL OR w.end_time > CURRENT_DATE)
+GROUP BY e.MCN, e.first_name, e.last_name, e.city
 ORDER BY e.city ASC, facility_count DESC;
+
 ");
 $Facility14->execute();
 
@@ -68,8 +69,8 @@ WHERE w.role IN ('Nurse', 'Doctor') AND e.MCN IN (
     SELECT MCN
     FROM infection_history
     WHERE type = 'COVID-19' AND times>=3
-)
-GROUP BY e.MCN
+) AND (w.end_time IS NULL OR w.end_time > CURRENT_DATE)
+GROUP BY e.MCN, e.first_name, e.last_name, w.role, e.date_of_birth, e.email_address
 ORDER BY w.role ASC, e.first_name ASC, e.last_name ASC;
 
 ");
@@ -79,13 +80,13 @@ $Facility16->execute();
 $Facility17=$conn->prepare("SELECT e.first_name, e.last_name, MIN(w.start_time) AS first_day_work, w.role, e.date_of_birth, e.email_address, SUM(TIMESTAMPDIFF(HOUR, s.startTime, s.endTime)) AS total_hours_scheduled
 FROM employees e
 JOIN workat w ON e.MCN = w.MCN
-LEFT JOIN schedule s ON e.MCN = s.MCN
+INNER JOIN schedule s ON e.MCN = s.MCN
 WHERE w.role IN ('Nurse', 'Doctor') AND e.MCN NOT IN (
     SELECT MCN
     FROM infection_history
     WHERE type = 'COVID-19'
 )
-GROUP BY e.MCN
+GROUP BY e.MCN, e.first_name, e.last_name, w.role, e.date_of_birth, e.email_address
 ORDER BY w.role ASC, e.first_name ASC, e.last_name ASC;
 
 
@@ -496,7 +497,7 @@ been infected by COVID-19 at least three times.---------->
     <div class="row row-content  align-items-center">
         <div class="col-12">
             <h2>Question 17:  Get details of the nurse(s) or the doctor(s) who are currently working and has
-                never been infected by COVID-19 at least three times. </h2>
+                never been infected by COVID-19 </h2>
             <!--Accordion-->
             <div id="accordion">
 

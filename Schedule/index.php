@@ -74,8 +74,8 @@ WHERE w.role = 'Nurse' AND w.start_time = (
     SELECT MAX(w2.start_time)
     FROM workat w2
     WHERE w2.MCN = e.MCN AND w2.role = 'Nurse'
-)
-GROUP BY e.MCN
+) AND (w.end_time IS NULL OR w.end_time > CURRENT_DATE)
+GROUP BY e.MCN, e.first_name, e.last_name, e.date_of_birth, e.email_address
 ORDER BY total_hours_scheduled DESC
 LIMIT 1;
 
