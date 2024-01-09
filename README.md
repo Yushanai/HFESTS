@@ -1,14 +1,14 @@
 # Health Facility Employee Status Tracking System
-***
+
 
 The Health Facility Employee Status Tracking System website is primarily built using PHP and MySQL, and it extensively employs various SQL functionalities.
 
 ## Author 
-***
+
 Zilin Xu
 
 
-***
+
 ## Content
 - [Features](#features)
 - [E/R Diagram](#er-diagram)
@@ -19,7 +19,7 @@ Zilin Xu
 - [Normalization Process Details](#normalization-process-details)
 
 ## Features
-***
+
 - 	**Frontend Development:** Leveraged Bootstrap and PHP to design and implement 
     the user interface of the Health Facility Employee Status Tracking System, 
     ensuring a responsive and intuitive user experience.
@@ -27,11 +27,11 @@ Zilin Xu
 - **Backend Functionality:** Implemented CRUD operations to enable comprehensive data management within the system. Employed MySQL triggers for real-time alert emails upon specific data conditions and configured MySQL events for automated, scheduled email dispatches.
 
 ## E/R Diagram:
-***
+
 ![E/R Diagram](img/ER_Diagram.jpg)
 
 ## Evaluate the SQL, DDL and DML commands
-***
+
 **1. Create/Delete/Edit/Display a Facility.**
 
 **Create query**
@@ -531,7 +531,7 @@ CALL UpdateEmailTable();
    ![](img/4.png)
 
 ## E/R to Relation conversion
-***
+
 **Facilities (name, type, address, city, province, postal\_code, phone\_number, web\_address, capacity)**
 
 **Key:** name
@@ -593,7 +593,7 @@ Vaccination is a weak entity set, so the key of Vaccination needs to be a discri
 Table Email is used to store the history of all emails sent by the system. Date, name, and email Subject bonded together to form a primary key which can search for specific email that was sent.
 
 ## Normalization Process Details
-***
+
 Normalization Process Details
 
 Show the relation is 3NF, we need to check the at least one of the following holds:
