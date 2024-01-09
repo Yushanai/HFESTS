@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+<<<<<<< HEAD
     <data-source source="LOCAL" name="comp353project@localhost" uuid="556e6394-9ef6-4ddb-88b9-fc4e23013999">
+=======
+    <data-source source="LOCAL" name="comp353project@localhost" uuid="ec580dc7-ddde-41ad-aba2-db5278ae3c55">
+>>>>>>> origin/main
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/comp353project</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+<<<<<<< HEAD
     <data-source source="LOCAL" name="@usw-cynosdbmysql-grp-kzimrklj.sql.tencentcdb.com" uuid="237fa4a1-f52e-4cca-a065-5a64e91d3bc7">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
@@ -15,5 +20,7 @@
       <jdbc-url>jdbc:mysql://usw-cynosdbmysql-grp-kzimrklj.sql.tencentcdb.com:24884</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+=======
+>>>>>>> origin/main
   </component>
 </project>
