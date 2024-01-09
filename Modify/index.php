@@ -1,4 +1,7 @@
 <?php require_once '../database.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $Employee = $conn->prepare('SELECT*FROM employees');
 $Employee->execute();
@@ -42,15 +45,15 @@ $Infection->execute();
             <div class="collapse navbar-collapse" id="Navbar">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item"><a class="nav-link fa-lg" href="../index.php"> <span
-                                class="fa fa-hospital-o "></span> Home</a></li>
+                                    class="fa fa-hospital-o "></span> Home</a></li>
                     <li class="nav-item"><a class="nav-link fa-lg" href="./index.php"><span
-                                class="fa fa-pencil  "></span>Modify</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="./information.php"><span
-                                class="fa fa-info "></span>Infomation</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="./schedule.php"><span
-                                class="fa fa-calendar-o "></span>Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link fa-lg" href="./email.php"><span
-                                class="fa fa-envelope-o  "></span>Email</a></li>
+                                    class="fa fa-pencil  "></span>Modify</a></li>
+                    <li class="nav-item"><a class="nav-link fa-lg" href="../Information/index.php"><span
+                                    class="fa fa-info "></span>Infomation</a></li>
+                    <li class="nav-item"><a class="nav-link fa-lg" href="../Schedule/index.php"><span
+                                    class="fa fa-calendar-o "></span>Schedule</a></li>
+                    <li class="nav-item"><a class="nav-link fa-lg" href="../Email/index.php"><span
+                                    class="fa fa-envelope-o  "></span>Email</a></li>
                 </ul>
             </div>
         </div>
@@ -796,9 +799,9 @@ $Infection->execute();
                     <ul class="list-unstyled">
                         <li><a href="../index.php">Home</a></li>
                         <li><a href="./index.php">Modify</a></li>
-                        <li><a href="./information.php">Infomation</a></li>
-                        <li><a href="./schedule.php">Schedule</a></li>
-                        <li><a href="./email.php">Email</a></li>
+                        <li><a href="Information/index.php">Infomation</a></li>
+                        <li><a href="Schedule/index.php">Schedule</a></li>
+                        <li><a href="Email/index.php">Email</a></li>
                     </ul>
                 </div>
                 <div class="col-7 col-sm-5">
