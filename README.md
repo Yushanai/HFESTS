@@ -4,8 +4,10 @@
 The Health Facility Employee Status Tracking System website is primarily built using PHP and MySQL, and it extensively employs various SQL functionalities.
 
 ## Author 
-
-Zilin Xu
+### Jin Chen 
+### Yushan Ai
+### Lin Zhu
+### Zilin Xu
 
 
 
