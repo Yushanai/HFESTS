@@ -14,7 +14,7 @@ The Health Facility Employee Status Tracking System website is primarily built u
 ## Content
 - [Features](#features)
 - [E/R Diagram](#er-diagram)
-- [Evaluate the SQL, DDL and DML commands](#evaluate-the-sql-ddl-and-dml-commands)
+- [Evaluate the SQL, DDL, and DML commands](#evaluate-the-sql-ddl-and-dml-commands)
     - [Events](#events)
     - [Trigger](#trigger)
 - [E/R to Relation conversion](#er-to-relation-conversion)
