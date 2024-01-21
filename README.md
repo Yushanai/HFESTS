@@ -5,10 +5,13 @@ The Health Facility Employee Status Tracking System website is primarily built u
 
 ![website](img/5.png)
 ## Author 
-[Jin Chen](https://github.com/JinChen-MTL)
-[Lin Zhu]
-[Yushan Ai](https://github.com/Yushanai)
-[Zilin Xu](https://github.com/Z1linXu)
+### [Jin Chen](https://github.com/JinChen-MTL)
+
+### Lin Zhu
+
+### [Yushan Ai](https://github.com/Yushanai)
+
+### [Zilin Xu](https://github.com/Z1linXu)
 
 
 
